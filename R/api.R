@@ -18,9 +18,9 @@ quota <- function(email, host = HOST, suffix = "quota") {
   print(content(response, "text"))
 }
 
-#' Submit a job
+#' Create JPRED parameters
 #' 
-#' Sumits a job to jpred itself.
+#' Creates a list of JPRED parameters for job submission.
 #' 
 #' @param mode what mode is being used. See Details.
 #' @param user_format what format is the data in
@@ -32,9 +32,10 @@ quota <- function(email, host = HOST, suffix = "quota") {
 #' 
 #' @export
 #' 
-#' @importFrom httr POST headers content
-#' @importFrom stringr str_match
-submit <- function(mode, user_format, file = NULL, seq = NULL, skipPDB = TRUE, email = NULL, name = NULL, silent = FALSE) {
+#' @return list of jpred parameters
+create_jpred_parameters <- function(mode, user_format, file = NULL, seq = NULL, 
+                                  skipPDB = TRUE, email = NULL, name = NULL, 
+                                  silent = FALSE){
   if (user_format == "raw" & mode == "single") {
     rest_format <- "seq"
   } else if (user_format == "fasta" & mode == "single") {
@@ -49,20 +50,20 @@ submit <- function(mode, user_format, file = NULL, seq = NULL, skipPDB = TRUE, e
     rest_format <- "batch"
   } else {
     stop("Invalid mode/format combination.
-          Valid combinations are: --mode=single --format=raw
-            --mode=single --format=fasta
-            --mode=msa    --format=fasta
-            --mode=msa    --format=msf
-            --mode=msa    --format=blc
-            --mode=batch  --format=fasta")
+         Valid combinations are: --mode=single --format=raw
+         --mode=single --format=fasta
+         --mode=msa    --format=fasta
+         --mode=msa    --format=msf
+         --mode=msa    --format=blc
+         --mode=batch  --format=fasta")
   }
   
   if (is.null(file) & is.null(seq)) {
     stop("Neither input sequence nor input file are defined.
-          Please provide either --file or --seq parameters.")
+         Please provide either --file or --seq parameters.")
   } else if (!is.null(file) & !is.null(seq)) {
     stop("Both input sequence and input file are defined.
-          Please choose --file or --seq parameter.")
+         Please choose --file or --seq parameter.")
   }
   
   if (!is.null(file)) {
@@ -83,8 +84,8 @@ submit <- function(mode, user_format, file = NULL, seq = NULL, skipPDB = TRUE, e
   
   if (rest_format == "batch" & is.null(email)) {
     stop("When submitting batch job email is obligatory.
-          You will receive detailed report, list of links and a link to archive
-          to all results via email.")
+         You will receive detailed report, list of links and a link to archive
+         to all results via email.")
   }
   
   if (!silent) {
@@ -108,6 +109,31 @@ submit <- function(mode, user_format, file = NULL, seq = NULL, skipPDB = TRUE, e
   
   parameters_list <- Filter(function(x) {!is.null(x)}, list(skipPDB=skipPDB, format=rest_format, email=email, name=name))
   parameters <- paste(names(parameters_list), parameters_list, sep = "=", collapse = "£€£€")
+  parameters
+
+}
+
+#' Submit a job
+#' 
+#' Sumits a job to jpred itself.
+#' 
+#' @param mode what mode is being used. See Details.
+#' @param user_format what format is the data in
+#' @param file a file to submit
+#' @param seq alternatively, a sequence in character string
+#' @param skipPDB should the PDB query be skipped? (default = TRUE)
+#' @param email for a batch job submission, where to send the results?
+#' @param name a name for the job.
+#' 
+#' @export
+#' 
+#' @importFrom httr POST headers content
+#' @importFrom stringr str_match
+submit <- function(mode, user_format, file = NULL, seq = NULL, skipPDB = TRUE, email = NULL, name = NULL, silent = FALSE) {
+
+  parameters <- create_jpred_parameters(mode, user_format, file = file, seq = seq, 
+                                        skipPDB = skipPDB, email = email, name = name, 
+                                        silent = silent)
   query <- paste(parameters, sequence_query, sep = "£€£€")
   
   job_url <- paste(HOST, "job", sep = "/")
