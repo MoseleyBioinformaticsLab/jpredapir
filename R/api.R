@@ -29,6 +29,7 @@ quota <- function(email, host = HOST, suffix = "quota") {
 #' @param skipPDB should the PDB query be skipped? (default = TRUE)
 #' @param email for a batch job submission, where to send the results?
 #' @param name a name for the job.
+#' @param silent should the work be done silently? (default = FALSE)
 #' 
 #' @export
 #' 
@@ -89,22 +90,13 @@ create_jpred_query <- function(mode, user_format, file = NULL, seq = NULL,
   }
   
   if (!silent) {
-    print("Your job will be submitted with the following parameters:")
-    print(paste("format:", rest_format))
-    print(paste("skipPDB:", skipPDB))
-    if (!is.null(file)) {
-      print(paste("file:", file))
-    } else if (!is.null(seq)) {
-      print(paste("seq:", seq))
-    }
-
-    if (!is.null(email)) {
-      print(paste("email:", email))
-    }
-
-    if (!is.null(name)) {
-      print(paste("name:", name))
-    }
+    message(paste0("Your job will be submitted with the following parameters:\n",
+                  "format: ", rest_format, "\n",
+                  "skipPDB: ", skipPDB, "\n",
+                  "file: ", file, "\n",
+                  "seq: ", seq, "\n",
+                  "email: ", email, "\n",
+                  "name: ", name, "\n"))
   }
   
   parameters_list <- Filter(function(x) {!is.null(x)}, list(skipPDB=skipPDB, format=rest_format, email=email, name=name))
