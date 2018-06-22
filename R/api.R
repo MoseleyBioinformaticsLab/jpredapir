@@ -33,7 +33,7 @@ quota <- function(email, host = HOST, suffix = "quota") {
 #' @export
 #' 
 #' @return list of jpred parameters
-create_jpred_parameters <- function(mode, user_format, file = NULL, seq = NULL, 
+create_jpred_query <- function(mode, user_format, file = NULL, seq = NULL, 
                                   skipPDB = TRUE, email = NULL, name = NULL, 
                                   silent = FALSE){
   if (user_format == "raw" & mode == "single") {
@@ -109,7 +109,8 @@ create_jpred_parameters <- function(mode, user_format, file = NULL, seq = NULL,
   
   parameters_list <- Filter(function(x) {!is.null(x)}, list(skipPDB=skipPDB, format=rest_format, email=email, name=name))
   parameters <- paste(names(parameters_list), parameters_list, sep = "=", collapse = "£€£€")
-  parameters
+  query <- paste(parameters, sequence_query, sep = "£€£€")
+  query
 
 }
 
@@ -131,10 +132,10 @@ create_jpred_parameters <- function(mode, user_format, file = NULL, seq = NULL,
 #' @importFrom stringr str_match
 submit <- function(mode, user_format, file = NULL, seq = NULL, skipPDB = TRUE, email = NULL, name = NULL, silent = FALSE) {
 
-  parameters <- create_jpred_parameters(mode, user_format, file = file, seq = seq, 
+  query <- create_jpred_query(mode, user_format, file = file, seq = seq, 
                                         skipPDB = skipPDB, email = email, name = name, 
                                         silent = silent)
-  query <- paste(parameters, sequence_query, sep = "£€£€")
+  
   
   job_url <- paste(HOST, "job", sep = "/")
   response <- httr::POST(job_url, body = query, httr::add_headers("Content-type" = "text/txt"))
