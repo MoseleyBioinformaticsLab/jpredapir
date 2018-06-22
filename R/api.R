@@ -1,7 +1,3 @@
-library(httr)
-library(stringr)
-
-
 JPRED4 <- "http://www.compbio.dundee.ac.uk/jpred4"
 HOST <- "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest"
 VERSION <- "1.5.0"
@@ -22,7 +18,22 @@ quota <- function(email, host = HOST, suffix = "quota") {
   print(content(response, "text"))
 }
 
-
+#' Submit a job
+#' 
+#' Sumits a job to jpred itself.
+#' 
+#' @param mode what mode is being used. See Details.
+#' @param user_format what format is the data in
+#' @param file a file to submit
+#' @param seq alternatively, a sequence in character string
+#' @param skipPDB should the PDB query be skipped? (default = TRUE)
+#' @param email for a batch job submission, where to send the results?
+#' @param name a name for the job.
+#' 
+#' @export
+#' 
+#' @importFrom httr POST headers content
+#' @importFrom stringr str_match
 submit <- function(mode, user_format, file = NULL, seq = NULL, skipPDB = TRUE, email = NULL, name = NULL, silent = FALSE) {
   if (user_format == "raw" & mode == "single") {
     rest_format <- "seq"
@@ -100,12 +111,12 @@ submit <- function(mode, user_format, file = NULL, seq = NULL, skipPDB = TRUE, e
   query <- paste(parameters, sequence_query, sep = "£€£€")
   
   job_url <- paste(HOST, "job", sep = "/")
-  response <- POST(job_url, body = query, add_headers("Content-type" = "text/txt"))
+  response <- httr::POST(job_url, body = query, httr::add_headers("Content-type" = "text/txt"))
   
   if (response$status_code == 202) {
     if (rest_format != "batch") {
-      result_url <- headers(response)$location
-      job_id <- str_match(string = result_url, pattern = "(jp_.*)$")[2]
+      result_url <- httr::headers(response)$location
+      job_id <- stringr::str_match(string = result_url, pattern = "(jp_.*)$")[2]
       
       if (!silent) {
         print(paste("Created JPred job with jobid:", job_id))
@@ -113,7 +124,7 @@ submit <- function(mode, user_format, file = NULL, seq = NULL, skipPDB = TRUE, e
       }
       
     } else if (rest_format == "batch") {
-      print(content(response, "text"))
+      print(httr::content(response, "text"))
     }
     
   } else {
