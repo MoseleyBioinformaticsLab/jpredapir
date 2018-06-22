@@ -18,6 +18,94 @@ quota <- function(email, host = HOST, suffix = "quota") {
   print(content(response, "text"))
 }
 
+#' Create JPRED parameters
+#' 
+#' Creates a list of JPRED parameters for job submission.
+#' 
+#' @param mode what mode is being used. See Details.
+#' @param user_format what format is the data in
+#' @param file a file to submit
+#' @param seq alternatively, a sequence in character string
+#' @param skipPDB should the PDB query be skipped? (default = TRUE)
+#' @param email for a batch job submission, where to send the results?
+#' @param name a name for the job.
+#' @param silent should the work be done silently? (default = FALSE)
+#' 
+#' @export
+#' 
+#' @return list of jpred parameters
+create_jpred_query <- function(mode, user_format, file = NULL, seq = NULL, 
+                                  skipPDB = TRUE, email = NULL, name = NULL, 
+                                  silent = FALSE){
+  if (user_format == "raw" & mode == "single") {
+    rest_format <- "seq"
+  } else if (user_format == "fasta" & mode == "single") {
+    rest_format <- "seq"
+  } else if (user_format == "fasta" & mode == "msa") {
+    rest_format <- "fasta"
+  } else if (user_format == "msf" & mode == "msa") {
+    rest_format <- "msf"
+  } else if (user_format == "blc" & mode == "msa") {
+    rest_format <- "blc"
+  } else if (user_format == "fasta" & mode == "batch") {
+    rest_format <- "batch"
+  } else {
+    stop("Invalid mode/format combination.
+         Valid combinations are: --mode=single --format=raw
+         --mode=single --format=fasta
+         --mode=msa    --format=fasta
+         --mode=msa    --format=msf
+         --mode=msa    --format=blc
+         --mode=batch  --format=fasta")
+  }
+  
+  if (is.null(file) & is.null(seq)) {
+    stop("Neither input sequence nor input file are defined.
+         Please provide either --file or --seq parameters.")
+  } else if (!is.null(file) & !is.null(seq)) {
+    stop("Both input sequence and input file are defined.
+         Please choose --file or --seq parameter.")
+  }
+  
+  if (!is.null(file)) {
+    sequence_query <- readChar(file, file.info(file)$size)
+  } else if (!is.null(seq)) {
+    sequence_query <- paste(">query", seq, sep = "\n")
+  } else {
+    sequence_query <- ""
+  }
+  
+  #print(sequence_query)
+
+  if (skipPDB) {
+    skipPDB <- "on"
+  } else {
+    skipPDB <- "off"
+  }
+  
+  if (rest_format == "batch" & is.null(email)) {
+    stop("When submitting batch job email is obligatory.
+         You will receive detailed report, list of links and a link to archive
+         to all results via email.")
+  }
+  
+  if (!silent) {
+    message(paste0("Your job will be submitted with the following parameters:\n",
+                  "format: ", rest_format, "\n",
+                  "skipPDB: ", skipPDB, "\n",
+                  "file: ", file, "\n",
+                  "seq: ", seq, "\n",
+                  "email: ", email, "\n",
+                  "name: ", name, "\n"))
+  }
+  
+  parameters_list <- Filter(function(x) {!is.null(x)}, list(skipPDB=skipPDB, format=rest_format, email=email, name=name))
+  parameters <- paste(names(parameters_list), parameters_list, sep = "=", collapse = "£€£€")
+  query <- paste(parameters, sequence_query, sep = "£€£€")
+  query
+
+}
+
 #' Submit a job
 #' 
 #' Sumits a job to jpred itself.
@@ -35,80 +123,11 @@ quota <- function(email, host = HOST, suffix = "quota") {
 #' @importFrom httr POST headers content
 #' @importFrom stringr str_match
 submit <- function(mode, user_format, file = NULL, seq = NULL, skipPDB = TRUE, email = NULL, name = NULL, silent = FALSE) {
-  if (user_format == "raw" & mode == "single") {
-    rest_format <- "seq"
-  } else if (user_format == "fasta" & mode == "single") {
-    rest_format <- "seq"
-  } else if (user_format == "fasta" & mode == "msa") {
-    rest_format <- "fasta"
-  } else if (user_format == "msf" & mode == "msa") {
-    rest_format <- "msf"
-  } else if (user_format == "blc" & mode == "msa") {
-    rest_format <- "blc"
-  } else if (user_format == "fasta" & mode == "batch") {
-    rest_format <- "batch"
-  } else {
-    stop("Invalid mode/format combination.
-          Valid combinations are: --mode=single --format=raw
-            --mode=single --format=fasta
-            --mode=msa    --format=fasta
-            --mode=msa    --format=msf
-            --mode=msa    --format=blc
-            --mode=batch  --format=fasta")
-  }
-  
-  if (is.null(file) & is.null(seq)) {
-    stop("Neither input sequence nor input file are defined.
-          Please provide either --file or --seq parameters.")
-  } else if (!is.null(file) & !is.null(seq)) {
-    stop("Both input sequence and input file are defined.
-          Please choose --file or --seq parameter.")
-  }
-  
-  if (!is.null(file)) {
-    sequence_query <- readChar(file, file.info(file)$size)
-  } else if (!is.null(seq)) {
-    sequence_query <- paste(">query", seq, sep = "\n")
-  } else {
-    sequence_query <- ""
-  }
-  
-  print(sequence_query)
 
-  if (skipPDB) {
-    skipPDB <- "on"
-  } else {
-    skipPDB <- "off"
-  }
+  query <- create_jpred_query(mode, user_format, file = file, seq = seq, 
+                                        skipPDB = skipPDB, email = email, name = name, 
+                                        silent = silent)
   
-  if (rest_format == "batch" & is.null(email)) {
-    stop("When submitting batch job email is obligatory.
-          You will receive detailed report, list of links and a link to archive
-          to all results via email.")
-  }
-  
-  if (!silent) {
-    print("Your job will be submitted with the following parameters:")
-    print(paste("format:", rest_format))
-    print(paste("skipPDB:", skipPDB))
-    if (!is.null(file)) {
-      print(paste("file:", file))
-    } else if (!is.null(seq)) {
-      print(paste("seq:", seq))
-    }
-
-    if (!is.null(email)) {
-      print(paste("email:", email))
-    }
-
-    if (!is.null(name)) {
-      print(paste("name:", name))
-    }
-  }
-  
-  parameters_list <- Filter(function(x) {!is.null(x)}, list(skipPDB=skipPDB, format=rest_format, email=email, name=name))
-  parameters <- paste(names(parameters_list), parameters_list, sep = "=", collapse = "£€£€")
-  query <- paste(parameters, sequence_query, sep = "£€£€")
   
   job_url <- paste(HOST, "job", sep = "/")
   response <- httr::POST(job_url, body = query, httr::add_headers("Content-type" = "text/txt"))

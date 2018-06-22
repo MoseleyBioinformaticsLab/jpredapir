@@ -11,6 +11,9 @@ License: MIT
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1
-Imports: 
+Imports:
     httr,
     stringr
+Suggests: 
+    testthat,
+    rprojroot
