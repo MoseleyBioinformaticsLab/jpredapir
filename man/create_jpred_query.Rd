@@ -21,6 +21,8 @@ create_jpred_query(mode, user_format, file = NULL, seq = NULL,
 \item{email}{for a batch job submission, where to send the results?}
 
 \item{name}{a name for the job.}
+
+\item{silent}{should the work be done silently? (default = FALSE)}
 }
 \value{
 list of jpred parameters
