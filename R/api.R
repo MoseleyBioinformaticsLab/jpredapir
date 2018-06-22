@@ -74,7 +74,7 @@ create_jpred_parameters <- function(mode, user_format, file = NULL, seq = NULL,
     sequence_query <- ""
   }
   
-  print(sequence_query)
+  #print(sequence_query)
 
   if (skipPDB) {
     skipPDB <- "on"
