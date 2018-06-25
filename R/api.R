@@ -3,19 +3,20 @@ HOST <- "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest"
 VERSION <- "1.5.0"
 
 
-check_version <- function(host = HOST, suffix = "version"){
+check_version <- function(host = HOST, suffix = "version") {
   jpred_version_url <- paste(host, suffix, sep = "/")
-  response <- GET(jpred_version_url)
-  version_string <- content(response, "text")
-  jpred_version <- str_match(string = version_string, pattern = "VERSION=(v.[0-9]*.[0-9]*)")[2]
+  response <- httr::GET(jpred_version_url)
+  version_string <- httr::content(response, "text")
+  jpred_version <- stringr::str_match(string = version_string, pattern = "VERSION=(v.[0-9]*.[0-9]*)")[2]
   return(jpred_version)
 }
 
 
 quota <- function(email, host = HOST, suffix = "quota") {
   quota_url = paste(host, suffix, email, sep = "/")
-  response <- GET(quota_url)
-  print(content(response, "text"))
+  response <- httr::GET(quota_url)
+  print(httr::content(response, "text"))
+  return(response)
 }
 
 #' Create JPRED parameters
@@ -35,8 +36,9 @@ quota <- function(email, host = HOST, suffix = "quota") {
 #' 
 #' @return list of jpred parameters
 create_jpred_query <- function(mode, user_format, file = NULL, seq = NULL, 
-                                  skipPDB = TRUE, email = NULL, name = NULL, 
-                                  silent = FALSE){
+                               skipPDB = TRUE, email = NULL, name = NULL, 
+                               silent = FALSE) {
+  
   if (user_format == "raw" & mode == "single") {
     rest_format <- "seq"
   } else if (user_format == "fasta" & mode == "single") {
@@ -51,7 +53,8 @@ create_jpred_query <- function(mode, user_format, file = NULL, seq = NULL,
     rest_format <- "batch"
   } else {
     stop("Invalid mode/format combination.
-         Valid combinations are: --mode=single --format=raw
+         Valid combinations are: 
+         --mode=single --format=raw
          --mode=single --format=fasta
          --mode=msa    --format=fasta
          --mode=msa    --format=msf
@@ -74,8 +77,6 @@ create_jpred_query <- function(mode, user_format, file = NULL, seq = NULL,
   } else {
     sequence_query <- ""
   }
-  
-  #print(sequence_query)
 
   if (skipPDB) {
     skipPDB <- "on"
@@ -102,13 +103,13 @@ create_jpred_query <- function(mode, user_format, file = NULL, seq = NULL,
   parameters_list <- Filter(function(x) {!is.null(x)}, list(skipPDB=skipPDB, format=rest_format, email=email, name=name))
   parameters <- paste(names(parameters_list), parameters_list, sep = "=", collapse = "£€£€")
   query <- paste(parameters, sequence_query, sep = "£€£€")
-  query
-
+  return(query)
 }
+
 
 #' Submit a job
 #' 
-#' Sumits a job to jpred itself.
+#' Sumits a job to JPRED itself.
 #' 
 #' @param mode what mode is being used. See Details.
 #' @param user_format what format is the data in
@@ -122,12 +123,12 @@ create_jpred_query <- function(mode, user_format, file = NULL, seq = NULL,
 #' 
 #' @importFrom httr POST headers content
 #' @importFrom stringr str_match
-submit <- function(mode, user_format, file = NULL, seq = NULL, skipPDB = TRUE, email = NULL, name = NULL, silent = FALSE) {
-
-  query <- create_jpred_query(mode, user_format, file = file, seq = seq, 
-                                        skipPDB = skipPDB, email = email, name = name, 
-                                        silent = silent)
+submit <- function(mode, user_format, file = NULL, seq = NULL, skipPDB = TRUE, 
+                   email = NULL, name = NULL, silent = FALSE) {
   
+  query <- create_jpred_query(mode, user_format, file = file, seq = seq,
+                              skipPDB = skipPDB, email = email, name = name, 
+                              silent = silent)
   
   job_url <- paste(HOST, "job", sep = "/")
   response <- httr::POST(job_url, body = query, httr::add_headers("Content-type" = "text/txt"))
@@ -172,7 +173,7 @@ status <- function(job_id, results_dir_path = NULL, extract = FALSE, silent = FA
   while (attempts < max_attempts) {
     response <- GET(job_url)
     
-    if (grepl(pattern = "finished", content(response, "text"))) {
+    if (grepl(pattern = "finished", httr::content(response, "text"))) {
       
       if (!is.null(results_dir_path)) {
         dir.create(results_dir_path, showWarnings = FALSE)
