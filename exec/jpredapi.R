@@ -10,12 +10,13 @@ Usage:
     jpredapi.R status (--jobid=<id>) [--results=<path>] [--wait=<interval>] [--attempts=<max>] [--rest=<address>] [--jpred4=<address>] [--extract] [--silent]
     jpredapi.R get_results (--jobid=<id>) [--results=<path>] [--wait=<interval>] [--attempts=<max>] [--rest=<address>] [--jpred4=<address>] [--extract] [--silent]
     jpredapi.R quota (--email=<name@domain.com>)
+    jpredapi.R check_rest_version [--rest=<address>]
     jpredapi.R -h | --help
     jpredapi.R -v | --version
 
 Options:
     -h, --help                 Show this help message.
-    -v, --version              Show jpredapi version.
+    -v, --version              Show jpredapir package version.
     --silent                   Do not print messages.
     --extract                  Extract results tar.gz archive.
     --skipPDB                  PDB check.
@@ -81,7 +82,11 @@ cli <- function(cmdargs) {
   
   } else if (cmdargs$quota) {
     jpredapir::quota(email = cmdargs$email)
+  
+  } else if (cmdargs$check_rest_version) {
+    jpredapir::check_rest_version(host = cmdargs$rest, suffix = "version")
   }
+  
 }
 
 
