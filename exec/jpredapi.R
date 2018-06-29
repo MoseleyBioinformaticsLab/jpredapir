@@ -38,12 +38,13 @@ library(docopt)
 library(jpredapir)
 
 
-cmdargs <- docopt(doc)
+jpredapir_version <- as.character(packageVersion("jpredapir"))
+cmdargs <- docopt(doc, version = jpredapir_version)
 
 
 #' jpredapir command-line interface processor.
 #'
-#' @param cmdargs List of command-line arguments.
+#' @param cmdargs List of command-line arguments.R
 #'
 #' @return Response.
 #'
