@@ -1,7 +1,7 @@
 
 #' Check version of JPred REST interface.
 #'
-#' @param host JPred host address ()
+#' @param host JPred host address
 #' @param suffix Host address suffix.
 #'
 #' @return Version of JPred REST API.
@@ -12,8 +12,8 @@
 #' @importFrom stringr str_match
 #' 
 #' @examples
-check_version <- function(host = "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest", 
-                          suffix = "version") {
+check_rest_version <- function(host = "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest", 
+                               suffix = "version") {
   
   jpred_version_url <- paste(host, suffix, sep = "/")
   response <- httr::GET(jpred_version_url)
