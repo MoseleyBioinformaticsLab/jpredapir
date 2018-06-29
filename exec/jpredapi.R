@@ -40,6 +40,13 @@ library(jpredapir)
 cmdargs <- docopt(doc)
 
 
+#' jpredapir command-line interface processor.
+#'
+#' @param cmdargs List of command-line arguments.
+#'
+#' @return Response.
+#'
+#' @examples
 cli <- function(cmdargs) {
   if (cmdargs$submit) {
     jpredapir::submit(mode = cmdargs$mode,
