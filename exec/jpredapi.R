@@ -6,7 +6,7 @@ jpredapir command-line interface
 The RESTful API allows JPred users to submit jobs from the command-line.
 
 Usage:
-    jpredapi.R submit (--mode=<mode> --format=<format>) (--file=<filename> | --seq=<sequence>) [--email=<name@domain.com>] [--name=<job_name>] [--rest=<address>] [--skipPDB] [--silent]
+    jpredapi.R submit (--mode=<mode> --format=<format>) (--file=<filename> | --seq=<sequence>) [--email=<name@domain.com>] [--name=<name>] [--rest=<address>] [--skipPDB] [--silent]
     jpredapi.R status (--jobid=<id>) [--results=<path>] [--wait=<interval>] [--attempts=<max>] [--rest=<address>] [--jpred4=<address>] [--extract] [--silent]
     jpredapi.R get_results (--jobid=<id>) [--results=<path>] [--wait=<interval>] [--attempts=<max>] [--rest=<address>] [--jpred4=<address>] [--extract] [--silent]
     jpredapi.R quota (--email=<name@domain.com>)
