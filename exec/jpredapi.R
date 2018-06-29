@@ -34,10 +34,11 @@ Options:
 " -> doc
 
 library(docopt)
+library(jpredapir)
+
 
 cmdargs <- docopt(doc)
-print(cmdargs)
-print(cmdargs$format)
+
 
 cli <- function(cmdargs) {
   if (cmdargs$submit) {
@@ -75,5 +76,6 @@ cli <- function(cmdargs) {
     jpredapir::quota(email = cmdargs$email)
   }
 }
+
 
 cli(cmdargs)
