@@ -2,26 +2,33 @@
 % Please edit documentation in R/api.R
 \name{submit}
 \alias{submit}
-\title{Submit a job}
+\title{Submit job to JPred interface.}
 \usage{
 submit(mode, user_format, file = NULL, seq = NULL, skipPDB = TRUE,
-  email = NULL, name = NULL, silent = FALSE)
+  email = NULL, name = NULL, silent = FALSE,
+  host = "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest",
+  suffix = "job")
 }
 \arguments{
-\item{mode}{what mode is being used. See Details.}
+\item{mode}{Submission mode, possible values: "single", "batch", "msa".}
 
-\item{user_format}{what format is the data in}
+\item{user_format}{Submission format, possible values: "raw", "fasta", "msf", "blc".}
 
-\item{file}{a file to submit}
+\item{file}{File path to a file with the job input (sequence or msa).}
 
-\item{seq}{alternatively, a sequence in character string}
+\item{seq}{Alternatively, amino acid sequence passed as string of single-letter code without spaces, e.g. --seq=ATWFGTHY}
 
-\item{skipPDB}{should the PDB query be skipped? (default = TRUE)}
+\item{skipPDB}{Should the PDB query be skipped? (default = TRUE)}
 
-\item{email}{for a batch job submission, where to send the results?}
+\item{email}{For a batch job submission, where to send the results?}
 
-\item{name}{a name for the job.}
+\item{name}{A name for the job.}
+
+\item{silent}{Should the work be done silently? (default = FALSE)}
+}
+\value{
+Response.
 }
 \description{
-Sumits a job to jpred itself.
+Submit job to JPred REST API.
 }

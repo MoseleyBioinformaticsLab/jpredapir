@@ -2,31 +2,31 @@
 % Please edit documentation in R/api.R
 \name{create_jpred_query}
 \alias{create_jpred_query}
-\title{Create JPRED parameters}
+\title{Create JPred parameters.}
 \usage{
-create_jpred_query(mode, user_format, file = NULL, seq = NULL,
-  skipPDB = TRUE, email = NULL, name = NULL, silent = FALSE)
+create_jpred_query(rest_format, file = NULL, seq = NULL, skipPDB = TRUE,
+  email = NULL, name = NULL, silent = FALSE)
 }
 \arguments{
-\item{mode}{what mode is being used. See Details.}
+\item{file}{File path to a file with the job input (sequence or msa).}
 
-\item{user_format}{what format is the data in}
+\item{seq}{Alternatively, amino acid sequence passed as string of single-letter code without spaces, e.g. --seq=ATWFGTHY}
 
-\item{file}{a file to submit}
+\item{skipPDB}{Should the PDB query be skipped? (default = TRUE)}
 
-\item{seq}{alternatively, a sequence in character string}
+\item{email}{For a batch job submission, where to send the results?}
 
-\item{skipPDB}{should the PDB query be skipped? (default = TRUE)}
+\item{name}{A name for the job.}
 
-\item{email}{for a batch job submission, where to send the results?}
+\item{silent}{Should the work be done silently? (default = FALSE)}
 
-\item{name}{a name for the job.}
+\item{mode}{Submission mode, possible values: "single", "batch", "msa".}
 
-\item{silent}{should the work be done silently? (default = FALSE)}
+\item{user_format}{Submission format, possible values: "raw", "fasta", "msf", "blc".}
 }
 \value{
-list of jpred parameters
+Formatted string with JPred parameters.
 }
 \description{
-Creates a list of JPRED parameters for job submission.
+Create a string with JPred parameters for job submission.
 }
