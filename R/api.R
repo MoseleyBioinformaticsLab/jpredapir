@@ -1,9 +1,20 @@
-JPRED4 <- "http://www.compbio.dundee.ac.uk/jpred4"
-HOST <- "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest"
-VERSION <- "1.5.0"
 
-
-check_version <- function(host = HOST, suffix = "version") {
+#' Check version of JPred REST interface.
+#'
+#' @param host JPred host address ()
+#' @param suffix Host address suffix.
+#'
+#' @return Version of JPred REST API.
+#' 
+#' @export
+#' 
+#' @importFrom httr GET content
+#' @importFrom stringr str_match
+#' 
+#' @examples
+check_version <- function(host = "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest", 
+                          suffix = "version") {
+  
   jpred_version_url <- paste(host, suffix, sep = "/")
   response <- httr::GET(jpred_version_url)
   version_string <- httr::content(response, "text")
@@ -12,32 +23,38 @@ check_version <- function(host = HOST, suffix = "version") {
 }
 
 
-quota <- function(email, host = HOST, suffix = "quota") {
+#' Check how many jobs you have already submitted on a given day
+#' (out of 1000 maximum allowed jobs per user per day).
+#'
+#' @param email E-mail address.
+#' @param host JPred host address.
+#' @param suffix Host address suffix.
+#'
+#' @return Response.
+#' 
+#' @export
+#' 
+#' @importFrom httr GET content
+#'
+#' @examples
+quota <- function(email, 
+                  host = "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest", 
+                  suffix = "quota") {
+  
   quota_url = paste(host, suffix, email, sep = "/")
   response <- httr::GET(quota_url)
   print(httr::content(response, "text"))
   return(response)
 }
 
-#' Create JPRED parameters
-#' 
-#' Creates a list of JPRED parameters for job submission.
-#' 
-#' @param mode what mode is being used. See Details.
-#' @param user_format what format is the data in
-#' @param file a file to submit
-#' @param seq alternatively, a sequence in character string
-#' @param skipPDB should the PDB query be skipped? (default = TRUE)
-#' @param email for a batch job submission, where to send the results?
-#' @param name a name for the job.
-#' @param silent should the work be done silently? (default = FALSE)
-#' 
-#' @export
-#' 
-#' @return list of jpred parameters
-create_jpred_query <- function(mode, user_format, file = NULL, seq = NULL, 
-                               skipPDB = TRUE, email = NULL, name = NULL, 
-                               silent = FALSE) {
+
+#' Resolve format of submission to JPred REST interface based on provided mode and user format.
+#'
+#' @param mode Submission mode, possible values: "single", "batch", "msa".
+#' @param user_format Submission format, possible values: "raw", "fasta", "msf", "blc".
+#'
+#' @return Format for JPred REST interface.
+resolve_rest_format <- function(mode, user_format) {
   
   if (user_format == "raw" & mode == "single") {
     rest_format <- "seq"
@@ -61,6 +78,25 @@ create_jpred_query <- function(mode, user_format, file = NULL, seq = NULL,
          --mode=msa    --format=blc
          --mode=batch  --format=fasta")
   }
+  return(rest_format)
+}
+
+
+#' Create a string with JPred parameters for job submission.
+#' 
+#' @param mode Submission mode, possible values: "single", "batch", "msa".
+#' @param user_format Submission format, possible values: "raw", "fasta", "msf", "blc".
+#' @param file File path to a file with the job input (sequence or msa).
+#' @param seq Alternatively, amino acid sequence passed as string of single-letter code without spaces, e.g. --seq=ATWFGTHY
+#' @param skipPDB Should the PDB query be skipped? (default = TRUE)
+#' @param email For a batch job submission, where to send the results?
+#' @param name A name for the job.
+#' @param silent Should the work be done silently? (default = FALSE)
+#' 
+#' @return Formatted string with JPred parameters.
+create_jpred_query <- function(rest_format, file = NULL, seq = NULL, 
+                               skipPDB = TRUE, email = NULL, name = NULL, 
+                               silent = FALSE) {
   
   if (is.null(file) & is.null(seq)) {
     stop("Neither input sequence nor input file are defined.
@@ -92,12 +128,12 @@ create_jpred_query <- function(mode, user_format, file = NULL, seq = NULL,
   
   if (!silent) {
     message(paste0("Your job will be submitted with the following parameters:\n",
-                  "format: ", rest_format, "\n",
-                  "skipPDB: ", skipPDB, "\n",
-                  "file: ", file, "\n",
-                  "seq: ", seq, "\n",
-                  "email: ", email, "\n",
-                  "name: ", name, "\n"))
+                   "format: ", rest_format, "\n",
+                   "skipPDB: ", skipPDB, "\n",
+                   "file: ", file, "\n",
+                   "seq: ", seq, "\n",
+                   "email: ", email, "\n",
+                   "name: ", name, "\n"))
   }
   
   parameters_list <- Filter(function(x) {!is.null(x)}, list(skipPDB=skipPDB, format=rest_format, email=email, name=name))
@@ -107,30 +143,36 @@ create_jpred_query <- function(mode, user_format, file = NULL, seq = NULL,
 }
 
 
-#' Submit a job
+#' Submit job to JPred REST API.
 #' 
-#' Sumits a job to JPRED itself.
+#' @param mode Submission mode, possible values: "single", "batch", "msa".
+#' @param user_format Submission format, possible values: "raw", "fasta", "msf", "blc".
+#' @param file File path to a file with the job input (sequence or msa).
+#' @param seq Alternatively, amino acid sequence passed as string of single-letter code without spaces, e.g. --seq=ATWFGTHY
+#' @param skipPDB Should the PDB query be skipped? (default = TRUE)
+#' @param email For a batch job submission, where to send the results?
+#' @param name A name for the job.
+#' @param silent Should the work be done silently? (default = FALSE)
 #' 
-#' @param mode what mode is being used. See Details.
-#' @param user_format what format is the data in
-#' @param file a file to submit
-#' @param seq alternatively, a sequence in character string
-#' @param skipPDB should the PDB query be skipped? (default = TRUE)
-#' @param email for a batch job submission, where to send the results?
-#' @param name a name for the job.
+#' @return Response.
 #' 
 #' @export
 #' 
 #' @importFrom httr POST headers content
 #' @importFrom stringr str_match
+#' 
+#' @examples
 submit <- function(mode, user_format, file = NULL, seq = NULL, skipPDB = TRUE, 
-                   email = NULL, name = NULL, silent = FALSE) {
+                   email = NULL, name = NULL, silent = FALSE,
+                   host = "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest",
+                   suffix = "job") {
   
-  query <- create_jpred_query(mode, user_format, file = file, seq = seq,
-                              skipPDB = skipPDB, email = email, name = name, 
-                              silent = silent)
+  rest_format <- resolve_rest_format(mode = mode, user_format = user_format)
+  query <- create_jpred_query(rest_format = rest_format, file = file, 
+                              seq = seq, skipPDB = skipPDB, email = email, 
+                              name = name, silent = silent)
   
-  job_url <- paste(HOST, "job", sep = "/")
+  job_url <- paste(host, suffix, sep = "/")
   response <- httr::POST(job_url, body = query, httr::add_headers("Content-type" = "text/txt"))
   
   if (response$status_code == 202) {
@@ -139,35 +181,48 @@ submit <- function(mode, user_format, file = NULL, seq = NULL, skipPDB = TRUE,
       job_id <- stringr::str_match(string = result_url, pattern = "(jp_.*)$")[2]
       
       if (!silent) {
-        print(paste("Created JPred job with jobid:", job_id))
-        print(paste("You can check the status of the job using the following URL:", result_url))
+        message(paste("Created JPred job with jobid:", job_id))
+        message(paste("You can check the status of the job using the following URL:", result_url))
       }
       
     } else if (rest_format == "batch") {
-      print(httr::content(response, "text"))
+      message(httr::content(response, "text"))
     }
     
   } else {
-    print(response$status_code)
+    message(response$status_code)
   }
-  
   return(response)
 }
 
 
-status <- function(job_id, results_dir_path = NULL, extract = FALSE, silent = FALSE, max_attempts = 10, wait_interval = 60) {
+#' Check status of the submitted job.
+#'
+#' @param job_id Job id.
+#' @param results_dir_path Directory path where to save results if job is finished.
+#' @param extract Extract or not results into directory (default = FALSE).
+#' @param max_attempts Maximum number of attempts to check job status (default = 10).
+#' @param wait_interval Wait interval before retrying to check job status in seconds (default = 60).
+#' @param silent Should the work be done silently? (default = FALSE).
+#' @param host JPred host address.
+#' @param jpred4 JPred address for results retrieval.
+#'
+#' @return Response.
+#' 
+#' @export
+#'
+#' @examples
+status <- function(job_id, results_dir_path = NULL, extract = FALSE, 
+                   max_attempts = 10, wait_interval = 60, silent = FALSE,
+                   host = "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest",
+                   jpred4 = "http://www.compbio.dundee.ac.uk/jpred4") {
   if (!silent) {
-    print("Your job status will be checked with the following parameters:")
-    print(paste("Job id:", job_id))
-    print(paste("Get results:", !is.null(results_dir_path)))
+    message("Your job status will be checked with the following parameters:")
+    message(paste("Job id:", job_id))
+    message(paste("Get results:", !is.null(results_dir_path)))
   }
   
-  job_url = paste(HOST, "job", "id", job_id, sep = "/")
-  
-  # response = RETRY("GET", job_url, times = 10, pause_base = 60, pause_cap = 120)
-  # I cannot use RETRY here because malformed "job_id" returns status code 200 as
-  # well as correct "job_id" returns status code 200, i.e. incorrect REST API status 
-  # codes handling. Will use while loop instead.
+  job_url = paste(host, "job", "id", job_id, sep = "/")
   
   attempts <- 0
   while (attempts < max_attempts) {
@@ -180,7 +235,7 @@ status <- function(job_id, results_dir_path = NULL, extract = FALSE, silent = FA
         results_dir_path <- file.path(results_dir_path, job_id)
         dir.create(results_dir_path, showWarnings = FALSE)
         
-        archive_url <- paste(JPRED4, "results", job_id, paste0(job_id, ".tar.gz"), sep = "/")
+        archive_url <- paste(jpred4, "results", job_id, paste0(job_id, ".tar.gz"), sep = "/")
         archive_path <- file.path(results_dir_path, paste0(job_id, ".tar.gz"))
         
         download.file(archive_url, archive_path)
@@ -190,7 +245,7 @@ status <- function(job_id, results_dir_path = NULL, extract = FALSE, silent = FA
         }
         
         if (!silent) {
-          print(paste("Saving results to:", normalizePath(results_dir_path)))
+          message(paste("Saving results to:", normalizePath(results_dir_path)))
         }
       }
       break
@@ -202,12 +257,30 @@ status <- function(job_id, results_dir_path = NULL, extract = FALSE, silent = FA
   return(response)
 }
 
-
-get_results <- function(job_id, results_dir_path = NULL, extract = FALSE, silent = FALSE) {
+#' Download results from JPred server.
+#'
+#' @param job_id Job id.
+#' @param results_dir_path Directory path where to save results if job is finished.
+#' @param extract Extract or not results into directory (default = FALSE).
+#' @param max_attempts Maximum number of attempts to check job status (default = 10).
+#' @param wait_interval Wait interval before retrying to check job status in seconds (default = 60).
+#' @param silent Should the work be done silently? (default = FALSE).
+#' @param host JPred host address.
+#' @param jpred4 JPred address for results retrieval.
+#'
+#' @return Response.
+#' 
+#' @export
+#'
+#' @examples
+get_results <- function(job_id, results_dir_path = NULL, extract = FALSE, 
+                        max_attempts = 10, wait_interval = 60, silent = FALSE,
+                        host = "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest",
+                        jpred4 = "http://www.compbio.dundee.ac.uk/jpred4") {
+  
   if (is.null(results_dir_path)) {
     results_dir_path <- file.path(getwd(), job_id)
   }
   
   status(job_id = job_id, results_dir_path = results_dir_path, extract = extract, silent = silent)
 }
-
