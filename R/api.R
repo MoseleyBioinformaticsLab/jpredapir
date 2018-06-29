@@ -1,5 +1,7 @@
 
 #' Check version of JPred REST interface.
+#' 
+#' Check version of JPred REST API.
 #'
 #' @param host JPred host address
 #' @param suffix Host address suffix.
@@ -23,6 +25,8 @@ check_rest_version <- function(host = "http://www.compbio.dundee.ac.uk/jpred4/cg
 }
 
 
+#' Check quota.
+#' 
 #' Check how many jobs you have already submitted on a given day
 #' (out of 1000 maximum allowed jobs per user per day).
 #'
@@ -48,6 +52,8 @@ quota <- function(email,
 }
 
 
+#' Determine JPred REST submission format.
+#' 
 #' Resolve format of submission to JPred REST interface based on provided mode and user format.
 #'
 #' @param mode Submission mode, possible values: "single", "batch", "msa".
@@ -82,6 +88,8 @@ resolve_rest_format <- function(mode, user_format) {
 }
 
 
+#' Create JPred parameters.
+#' 
 #' Create a string with JPred parameters for job submission.
 #' 
 #' @param mode Submission mode, possible values: "single", "batch", "msa".
@@ -143,6 +151,8 @@ create_jpred_query <- function(rest_format, file = NULL, seq = NULL,
 }
 
 
+#' Submit job to JPred interface.
+#' 
 #' Submit job to JPred REST API.
 #' 
 #' @param mode Submission mode, possible values: "single", "batch", "msa".
@@ -196,6 +206,8 @@ submit <- function(mode, user_format, file = NULL, seq = NULL, skipPDB = TRUE,
 }
 
 
+#' Check status.
+#' 
 #' Check status of the submitted job.
 #'
 #' @param job_id Job id.
@@ -257,6 +269,8 @@ status <- function(job_id, results_dir_path = NULL, extract = FALSE,
   return(response)
 }
 
+#' Download results.
+#' 
 #' Download results from JPred server.
 #'
 #' @param job_id Job id.
