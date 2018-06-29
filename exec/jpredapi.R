@@ -6,12 +6,12 @@ jpredapir command-line interface
 The RESTful API allows JPred users to submit jobs from the command-line.
 
 Usage:
-    jpredapir submit (--mode=<mode> --format=<format>) (--file=<filename> | --seq=<sequence>) [--email=<name@domain.com>] [--name=<job_name>] [--rest=<address>] [--skipPDB] [--silent]
-    jpredapir status (--jobid=<id>) [--results=<path>] [--wait=<interval>] [--attempts=<max>] [--rest=<address>] [--jpred4=<address>] [--extract] [--silent]
-    jpredapir get_results (--jobid=<id>) [--results=<path>] [--wait=<interval>] [--attempts=<max>] [--rest=<address>] [--jpred4=<address>] [--extract] [--silent]
-    jpredapir quota (--email=<name@domain.com>)
-    jpredapir -h | --help
-    jpredapir -v | --version
+    jpredapi.R submit (--mode=<mode> --format=<format>) (--file=<filename> | --seq=<sequence>) [--email=<name@domain.com>] [--name=<job_name>] [--rest=<address>] [--skipPDB] [--silent]
+    jpredapi.R status (--jobid=<id>) [--results=<path>] [--wait=<interval>] [--attempts=<max>] [--rest=<address>] [--jpred4=<address>] [--extract] [--silent]
+    jpredapi.R get_results (--jobid=<id>) [--results=<path>] [--wait=<interval>] [--attempts=<max>] [--rest=<address>] [--jpred4=<address>] [--extract] [--silent]
+    jpredapi.R quota (--email=<name@domain.com>)
+    jpredapi.R -h | --help
+    jpredapi.R -v | --version
 
 Options:
     -h, --help                 Show this help message.
@@ -24,8 +24,8 @@ Options:
     --file=<filename>          Filename of a file with the job input (sequence(s)).
     --seq=<sequence>           Instead of passing input file, for single-sequence submission.
     --email=<name@domain.com>  E-mail address where job report will be sent (optional for all but batch submissions).
-    --name=<job_name>          Job name.
-    --jobid=<job_id>           Job id.
+    --name=<name>              Job name.
+    --jobid=<id>               Job id.
     --results=<path>           Path to directory where to save archive with results.
     --rest=<address>           REST address of server [default: http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest].
     --jpred4=<address>         Address of Jpred4 server [default: http://www.compbio.dundee.ac.uk/jpred4].
