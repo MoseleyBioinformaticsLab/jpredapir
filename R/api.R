@@ -185,7 +185,7 @@ submit <- function(mode, user_format, file = NULL, seq = NULL, skipPDB = TRUE,
   job_url <- paste(host, suffix, sep = "/")
   response <- httr::POST(job_url, body = query, httr::add_headers("Content-type" = "text/txt"))
   
-  if (response$status_code == 202 & grepl(pattern = "Created JPred job", httr::content(response, "text"))) {
+  if (response$status_code == 202 & grepl(pattern = "created jpred job", tolower(httr::content(response, "text")))) {
     if (rest_format != "batch") {
       result_url <- httr::headers(response)$location
       job_id <- stringr::str_match(string = result_url, pattern = "(jp_.*)$")[2]
@@ -240,7 +240,7 @@ status <- function(job_id, results_dir_path = NULL, extract = FALSE,
   while (attempts < max_attempts) {
     response <- GET(job_url)
     
-    if (grepl(pattern = "finished", httr::content(response, "text"))) {
+    if (grepl(pattern = "finished", tolower(httr::content(response, "text")))) {
       
       if (!is.null(results_dir_path)) {
         dir.create(results_dir_path, showWarnings = FALSE)
