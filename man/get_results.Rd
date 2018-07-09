@@ -34,6 +34,7 @@ Download results from JPred server.
 }
 \examples{
 
+get_results(job_id = "jp_K46D05A")
 get_results(job_id = "jp_K46D05A", results_dir_path = "jpred_sspred/results")
 get_results(job_id = "jp_K46D05A", results_dir_path = "jpred_sspred/results", extract = TRUE)
 }
