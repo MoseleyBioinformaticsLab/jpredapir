@@ -5,7 +5,7 @@
 \title{Check quota.}
 \usage{
 quota(email, host = "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest",
-  suffix = "quota")
+  suffix = "quota", silent = FALSE)
 }
 \arguments{
 \item{email}{E-mail address.}
@@ -20,4 +20,8 @@ Response.
 \description{
 Check how many jobs you have already submitted on a given day
 (out of 1000 maximum allowed jobs per user per day).
+}
+\examples{
+
+quota(email = "name@domain.com")
 }

@@ -6,7 +6,7 @@
 \usage{
 
   check_rest_version(host = "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest",
-  suffix = "version")
+  suffix = "version", silent = FALSE)
 }
 \arguments{
 \item{host}{JPred host address}
@@ -18,4 +18,8 @@ Version of JPred REST API.
 }
 \description{
 Check version of JPred REST API.
+}
+\examples{
+
+check_rest_version()
 }

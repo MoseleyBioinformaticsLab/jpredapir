@@ -32,3 +32,13 @@ Response.
 \description{
 Submit job to JPred REST API.
 }
+\examples{
+
+submit(mode = "single", user_format = "raw", seq = "MQVWPIEGIKKFETLSYLPP")
+submit(mode = "single", user_format = "raw", file = "inst/exampledata/single_raw.example")
+submit(mode = "single", user_format = "fasta", file = "inst/exampledata/single_fasta.example")
+submit(mode = "batch", user_format = "fasta", file = "inst/exampledata/batch_fasta.example", email = "name@domain.com")
+submit(mode = "msa", user_format = "fasta", file = "inst/exampledata/msa_fasta.example", email = "name@domain.com")
+submit(mode = "msa", user_format = "msf", file = "inst/exampledata/msa_msf.example", email = "name@domain.com")
+submit(mode = "msa", user_format = "blc", file = "inst/exampledata/msa_blc.example", email = "name@domain.com")
+}
