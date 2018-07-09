@@ -2,7 +2,7 @@
 
 The `jpredapir` package provides a simple R interface for submitting
 and retrieving jobs from JPred: A Protein Secondary Structure Prediction Server
-[JPred](http://www.compbio.dundee.ac.uk/jpred/)
+([JPred](http://www.compbio.dundee.ac.uk/jpred/))
 
 This is unofficial Python port of `jpredapi` perl script that can be found here:
 http://www.compbio.dundee.ac.uk/jpred4/api.shtml
