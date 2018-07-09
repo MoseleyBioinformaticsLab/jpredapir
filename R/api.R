@@ -15,13 +15,19 @@
 #' @importFrom stringr str_match
 #' 
 #' @examples
+#' 
+#' 
 check_rest_version <- function(host = "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest", 
-                               suffix = "version") {
+                               suffix = "version",
+                               silent = FALSE) {
   
   jpred_version_url <- paste(host, suffix, sep = "/")
   response <- httr::GET(jpred_version_url)
   version_string <- httr::content(response, "text")
   jpred_version <- stringr::str_match(string = version_string, pattern = "VERSION=(v.[0-9]*.[0-9]*)")[2]
+  if (!silent) {
+    message(jpred_version)
+  }
   return(jpred_version)
 }
 
@@ -44,11 +50,14 @@ check_rest_version <- function(host = "http://www.compbio.dundee.ac.uk/jpred4/cg
 #' @examples
 quota <- function(email, 
                   host = "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest", 
-                  suffix = "quota") {
+                  suffix = "quota",
+                  silent = FALSE) {
   
   quota_url = paste(host, suffix, email, sep = "/")
   response <- httr::GET(quota_url)
-  print(httr::content(response, "text"))
+  if (!silent) {
+    message(httr::content(response, "text"))
+  }
   return(response)
 }
 
@@ -288,6 +297,8 @@ status <- function(job_id, results_dir_path = NULL, extract = FALSE,
 #' @export
 #'
 #' @examples
+#' 
+#' 
 get_results <- function(job_id, results_dir_path = NULL, extract = FALSE, 
                         max_attempts = 10, wait_interval = 60, silent = FALSE,
                         host = "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest",
