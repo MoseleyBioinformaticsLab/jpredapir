@@ -1,3 +1,4 @@
+#!/usr/bin/env Rscript
 
 #' Check version of JPred REST interface.
 #' 
@@ -296,5 +297,7 @@ get_results <- function(job_id, results_dir_path = NULL, extract = FALSE,
     results_dir_path <- file.path(getwd(), job_id)
   }
   
-  status(job_id = job_id, results_dir_path = results_dir_path, extract = extract, silent = silent)
+  response = status(job_id = job_id, results_dir_path = results_dir_path, 
+                    extract = extract, silent = silent)
+  return(response)
 }
