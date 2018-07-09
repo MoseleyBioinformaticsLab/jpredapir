@@ -1,4 +1,4 @@
-# jpredapi
+# jpredapir
 
 The `jpredapir` package provides a simple R interface for submitting
 and retrieving jobs from JPred: A Protein Secondary Structure Prediction Server
