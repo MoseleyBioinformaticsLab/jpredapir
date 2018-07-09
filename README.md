@@ -22,4 +22,4 @@ devtools::install_github("MoseleyBioinformaticsLab/jpredapir")
 
 ## License
 
-This package is distributed under the [MIT](https://choosealicense.com/licenses/mit).
+This package is distributed under the [MIT](https://choosealicense.com/licenses/mit) license.
