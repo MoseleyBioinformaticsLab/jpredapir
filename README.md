@@ -17,7 +17,7 @@ http://www.compbio.dundee.ac.uk/jpred4/api.shtml
 
 ``` R
 # install.packages(devtools)
-devtools::install_github("MoseleyBioinformaticsLab/waitcopy")
+devtools::install_github("MoseleyBioinformaticsLab/jpredapir")
 ```
 
 ## License
