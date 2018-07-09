@@ -1,4 +1,4 @@
-#jpredapi
+# jpredapi
 
 The `jpredapir` package provides a simple R interface for submitting
 and retrieving jobs from JPred: A Protein Secondary Structure Prediction Server
@@ -8,18 +8,18 @@ This is unofficial Python port of `jpredapi` perl script that can be found here:
 http://www.compbio.dundee.ac.uk/jpred4/api.shtml
 
 
-##Links
+## Links
 
    * jpredapir [@GitHub](https://github.com/MoseleyBioinformaticsLab/jpredapir)
 
 
-##Installation
+## Installation
 
 ``` R
 # install.packages(devtools)
 devtools::install_github("MoseleyBioinformaticsLab/waitcopy")
 ```
 
-##License
+## License
 
 This package is distributed under the [MIT](https://choosealicense.com/licenses/mit).
