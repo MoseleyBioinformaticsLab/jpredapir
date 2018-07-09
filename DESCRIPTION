@@ -1,5 +1,5 @@
 Package: jpredapir
-Title: R Access to JPRED API
+Title: R Access to JPred API
 Version: 0.1.0
 Authors@R: c(person("Andrey", "Smelter", email = "andrey.smelter@gmail.com",
                     role = c("aut", "cre")),
