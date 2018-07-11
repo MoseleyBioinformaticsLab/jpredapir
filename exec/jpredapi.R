@@ -3,7 +3,7 @@
 "
 jpredapir command-line interface
 
-The RESTful API allows JPred users to submit jobs from the command-line.
+The JPred API allows users to submit jobs from the command-line.
 
 Usage:
     jpredapi.R submit (--mode=<mode> --format=<format>) (--file=<filename> | --seq=<sequence>) [--email=<name@domain.com>] [--name=<name>] [--rest=<address>] [--skipPDB] [--silent]
