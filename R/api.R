@@ -219,11 +219,15 @@ submit <- function(mode, user_format, file = NULL, seq = NULL, skipPDB = TRUE,
       }
       
     } else if (rest_format == "batch") {
-      message(httr::content(response, "text"))
+      if (!silent) {
+        message(httr::content(response, "text"))
+      }
     }
     
   } else {
-    message(paste(message(httr::content(response, "text")), response$status_code))
+    if (!silent) {
+      message(paste(message(httr::content(response, "text")), response$status_code))
+    }
   }
   return(response)
 }
