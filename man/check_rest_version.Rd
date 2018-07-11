@@ -9,9 +9,11 @@
   suffix = "version", silent = FALSE)
 }
 \arguments{
-\item{host}{JPred host address}
+\item{host}{JPred host address.}
 
 \item{suffix}{Host address suffix.}
+
+\item{silent}{Should the work be done silently? (default = FALSE)}
 }
 \value{
 Version of JPred REST API.

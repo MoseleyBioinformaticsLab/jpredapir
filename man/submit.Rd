@@ -25,6 +25,10 @@ submit(mode, user_format, file = NULL, seq = NULL, skipPDB = TRUE,
 \item{name}{A name for the job.}
 
 \item{silent}{Should the work be done silently? (default = FALSE)}
+
+\item{host}{JPred host address.}
+
+\item{suffix}{Host address suffix.}
 }
 \value{
 Response.

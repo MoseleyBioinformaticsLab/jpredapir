@@ -8,6 +8,8 @@ create_jpred_query(rest_format, file = NULL, seq = NULL, skipPDB = TRUE,
   email = NULL, name = NULL, silent = FALSE)
 }
 \arguments{
+\item{rest_format}{Format for JPred REST interface.}
+
 \item{file}{File path to a file with the job input (sequence or msa).}
 
 \item{seq}{Alternatively, amino acid sequence passed as string of single-letter code without spaces, e.g. --seq=ATWFGTHY}
@@ -19,10 +21,6 @@ create_jpred_query(rest_format, file = NULL, seq = NULL, skipPDB = TRUE,
 \item{name}{A name for the job.}
 
 \item{silent}{Should the work be done silently? (default = FALSE)}
-
-\item{mode}{Submission mode, possible values: "single", "batch", "msa".}
-
-\item{user_format}{Submission format, possible values: "raw", "fasta", "msf", "blc".}
 }
 \value{
 Formatted string with JPred parameters.

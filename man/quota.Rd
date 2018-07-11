@@ -13,6 +13,8 @@ quota(email, host = "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest",
 \item{host}{JPred host address.}
 
 \item{suffix}{Host address suffix.}
+
+\item{silent}{Should the work be done silently? (default = FALSE)}
 }
 \value{
 Response.
