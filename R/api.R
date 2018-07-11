@@ -4,8 +4,9 @@
 #' 
 #' Check version of JPred REST API.
 #'
-#' @param host JPred host address
+#' @param host JPred host address.
 #' @param suffix Host address suffix.
+#' @param silent Should the work be done silently? (default = FALSE)
 #'
 #' @return Version of JPred REST API.
 #' 
@@ -40,6 +41,7 @@ check_rest_version <- function(host = "http://www.compbio.dundee.ac.uk/jpred4/cg
 #' @param email E-mail address.
 #' @param host JPred host address.
 #' @param suffix Host address suffix.
+#' @param silent Should the work be done silently? (default = FALSE)
 #'
 #' @return Response.
 #' 
@@ -104,8 +106,7 @@ resolve_rest_format <- function(mode, user_format) {
 #' 
 #' Create a string with JPred parameters for job submission.
 #' 
-#' @param mode Submission mode, possible values: "single", "batch", "msa".
-#' @param user_format Submission format, possible values: "raw", "fasta", "msf", "blc".
+#' @param rest_format Format for JPred REST interface.
 #' @param file File path to a file with the job input (sequence or msa).
 #' @param seq Alternatively, amino acid sequence passed as string of single-letter code without spaces, e.g. --seq=ATWFGTHY
 #' @param skipPDB Should the PDB query be skipped? (default = TRUE)
@@ -175,6 +176,8 @@ create_jpred_query <- function(rest_format, file = NULL, seq = NULL,
 #' @param email For a batch job submission, where to send the results?
 #' @param name A name for the job.
 #' @param silent Should the work be done silently? (default = FALSE)
+#' @param host JPred host address.
+#' @param suffix Host address suffix.
 #' 
 #' @return Response.
 #' 
