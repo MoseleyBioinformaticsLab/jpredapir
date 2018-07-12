@@ -33,8 +33,10 @@ Response.
 Check status of the submitted job.
 }
 \examples{
-
+\dontrun{
+## Not run ---
 status(job_id = "jp_K46D05A")
 status(job_id = "jp_K46D05A", results_dir_path = "jpred_sspred/results")
 status(job_id = "jp_K46D05A", results_dir_path = "jpred_sspred/results", extract = TRUE)
+}
 }

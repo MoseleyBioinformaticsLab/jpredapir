@@ -24,6 +24,9 @@ Check how many jobs you have already submitted on a given day
 (out of 1000 maximum allowed jobs per user per day).
 }
 \examples{
-
+\dontrun{
+## Not run --
 quota(email = "name@domain.com")
+}
+
 }
