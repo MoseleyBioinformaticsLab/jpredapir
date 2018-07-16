@@ -16,8 +16,10 @@
 #' @importFrom stringr str_match
 #' 
 #' @examples
-#' 
+#' \dontrun{
+#' ## Not run --
 #' check_rest_version()
+#' }
 check_rest_version <- function(host = "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest", 
                                suffix = "version",
                                silent = FALSE) {
@@ -50,8 +52,11 @@ check_rest_version <- function(host = "http://www.compbio.dundee.ac.uk/jpred4/cg
 #' @importFrom httr GET content
 #'
 #' @examples
-#' 
+#' \dontrun{
+#' ## Not run --
 #' quota(email = "name@domain.com")
+#' }
+#' 
 quota <- function(email, 
                   host = "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest", 
                   suffix = "quota",
@@ -187,14 +192,23 @@ create_jpred_query <- function(rest_format, file = NULL, seq = NULL,
 #' @importFrom stringr str_match
 #' 
 #' @examples
-#' 
+#' \dontrun{
+#' ## Not run ---
+#' example_path <- system.file("exampledata", package = "jpredapir")
 #' submit(mode = "single", user_format = "raw", seq = "MQVWPIEGIKKFETLSYLPP")
-#' submit(mode = "single", user_format = "raw", file = "inst/exampledata/single_raw.example")
-#' submit(mode = "single", user_format = "fasta", file = "inst/exampledata/single_fasta.example")
-#' submit(mode = "batch", user_format = "fasta", file = "inst/exampledata/batch_fasta.example", email = "name@domain.com")
-#' submit(mode = "msa", user_format = "fasta", file = "inst/exampledata/msa_fasta.example", email = "name@domain.com")
-#' submit(mode = "msa", user_format = "msf", file = "inst/exampledata/msa_msf.example", email = "name@domain.com")
-#' submit(mode = "msa", user_format = "blc", file = "inst/exampledata/msa_blc.example", email = "name@domain.com")
+#' submit(mode = "single", user_format = "raw", 
+#'        file = file.path(example_path, "single_raw.example"))
+#' submit(mode = "single", user_format = "fasta", 
+#'        file = file.path(example_path, "single_fasta.example"))
+#' submit(mode = "batch", user_format = "fasta", 
+#'        file = file.path(example_path, "batch_fasta.example"), email = "name@domain.com")
+#' submit(mode = "msa", user_format = "fasta", 
+#'        file = file.path(example_path, "msa_fasta.example"), email = "name@domain.com")
+#' submit(mode = "msa", user_format = "msf", 
+#'        file = file.path(example_path, "msa_msf.example"), email = "name@domain.com")
+#' submit(mode = "msa", user_format = "blc", 
+#'        file = file.path(example_path, "msa_blc.example"), email = "name@domain.com")
+#' }
 submit <- function(mode, user_format, file = NULL, seq = NULL, skipPDB = TRUE, 
                    email = NULL, name = NULL, silent = FALSE,
                    host = "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest",
@@ -248,13 +262,17 @@ submit <- function(mode, user_format, file = NULL, seq = NULL, skipPDB = TRUE,
 #'
 #' @return Response.
 #' 
+#' @importFrom utils download.file untar
+#' 
 #' @export
 #'
 #' @examples
-#' 
+#' \dontrun{
+#' ## Not run ---
 #' status(job_id = "jp_K46D05A")
 #' status(job_id = "jp_K46D05A", results_dir_path = "jpred_sspred/results")
 #' status(job_id = "jp_K46D05A", results_dir_path = "jpred_sspred/results", extract = TRUE)
+#' }
 status <- function(job_id, results_dir_path = NULL, extract = FALSE, 
                    max_attempts = 10, wait_interval = 60, silent = FALSE,
                    host = "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest",
@@ -318,10 +336,12 @@ status <- function(job_id, results_dir_path = NULL, extract = FALSE,
 #' @export
 #'
 #' @examples
-#' 
+#' \dontrun{
+#' ## Not run ---
 #' get_results(job_id = "jp_K46D05A")
 #' get_results(job_id = "jp_K46D05A", results_dir_path = "jpred_sspred/results")
 #' get_results(job_id = "jp_K46D05A", results_dir_path = "jpred_sspred/results", extract = TRUE)
+#' }
 get_results <- function(job_id, results_dir_path = NULL, extract = FALSE, 
                         max_attempts = 10, wait_interval = 60, silent = FALSE,
                         host = "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest",

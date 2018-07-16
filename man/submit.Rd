@@ -37,12 +37,21 @@ Response.
 Submit job to JPred REST API.
 }
 \examples{
-
+\dontrun{
+## Not run ---
+example_path <- system.file("exampledata", package = "jpredapir")
 submit(mode = "single", user_format = "raw", seq = "MQVWPIEGIKKFETLSYLPP")
-submit(mode = "single", user_format = "raw", file = "inst/exampledata/single_raw.example")
-submit(mode = "single", user_format = "fasta", file = "inst/exampledata/single_fasta.example")
-submit(mode = "batch", user_format = "fasta", file = "inst/exampledata/batch_fasta.example", email = "name@domain.com")
-submit(mode = "msa", user_format = "fasta", file = "inst/exampledata/msa_fasta.example", email = "name@domain.com")
-submit(mode = "msa", user_format = "msf", file = "inst/exampledata/msa_msf.example", email = "name@domain.com")
-submit(mode = "msa", user_format = "blc", file = "inst/exampledata/msa_blc.example", email = "name@domain.com")
+submit(mode = "single", user_format = "raw", 
+       file = file.path(example_path, "single_raw.example"))
+submit(mode = "single", user_format = "fasta", 
+       file = file.path(example_path, "single_fasta.example"))
+submit(mode = "batch", user_format = "fasta", 
+       file = file.path(example_path, "batch_fasta.example"), email = "name@domain.com")
+submit(mode = "msa", user_format = "fasta", 
+       file = file.path(example_path, "msa_fasta.example"), email = "name@domain.com")
+submit(mode = "msa", user_format = "msf", 
+       file = file.path(example_path, "msa_msf.example"), email = "name@domain.com")
+submit(mode = "msa", user_format = "blc", 
+       file = file.path(example_path, "msa_blc.example"), email = "name@domain.com")
+}
 }

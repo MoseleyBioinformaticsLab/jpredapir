@@ -22,6 +22,8 @@ Version of JPred REST API.
 Check version of JPred REST API.
 }
 \examples{
-
+\dontrun{
+## Not run --
 check_rest_version()
+}
 }
