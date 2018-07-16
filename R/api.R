@@ -163,8 +163,10 @@ create_jpred_query <- function(rest_format, file = NULL, seq = NULL,
   }
   
   parameters_list <- Filter(function(x) {!is.null(x)}, list(skipPDB=skipPDB, format=rest_format, email=email, name=name))
-  parameters <- paste(names(parameters_list), parameters_list, sep = "=", collapse = "£€£€")
-  query <- paste(parameters, sequence_query, sep = "£€£€")
+  # parameters <- paste(names(parameters_list), parameters_list, sep = "=", collapse = "£€£€")
+  # query <- paste(parameters, sequence_query, sep = "£€£€")
+  parameters <- paste(names(parameters_list), parameters_list, sep = "=", collapse = "\u00a3\u20ac\u00a3\u20ac")
+  query <- paste(parameters, sequence_query, sep = "\u00a3\u20ac\u00a3\u20ac")
   return(query)
 }
 
