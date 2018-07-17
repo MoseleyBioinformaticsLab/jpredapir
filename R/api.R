@@ -225,10 +225,10 @@ submit <- function(mode, user_format, file = NULL, seq = NULL, skipPDB = TRUE,
   if (response$status_code == 202 & grepl(pattern = "created jpred job", tolower(httr::content(response, "text")))) {
     if (rest_format != "batch") {
       result_url <- httr::headers(response)$location
-      job_id <- stringr::str_match(string = result_url, pattern = "(jp_.*)$")[2]
+      jobid <- stringr::str_match(string = result_url, pattern = "(jp_.*)$")[2]
       
       if (!silent) {
-        message(paste("Created JPred job with jobid:", job_id))
+        message(paste("Created JPred job with jobid:", jobid))
         message(paste("You can check the status of the job using the following URL:", result_url))
       }
       
@@ -251,7 +251,7 @@ submit <- function(mode, user_format, file = NULL, seq = NULL, skipPDB = TRUE,
 #' 
 #' Check status of the submitted job.
 #'
-#' @param job_id Job id.
+#' @param jobid Job id.
 #' @param results_dir_path Directory path where to save results if job is finished.
 #' @param extract Extract or not results into directory (default = FALSE).
 #' @param max_attempts Maximum number of attempts to check job status (default = 10).
@@ -269,21 +269,21 @@ submit <- function(mode, user_format, file = NULL, seq = NULL, skipPDB = TRUE,
 #' @examples
 #' \dontrun{
 #' ## Not run ---
-#' status(job_id = "jp_K46D05A")
-#' status(job_id = "jp_K46D05A", results_dir_path = "jpred_sspred/results")
-#' status(job_id = "jp_K46D05A", results_dir_path = "jpred_sspred/results", extract = TRUE)
+#' status(jobid = "jp_K46D05A")
+#' status(jobid = "jp_K46D05A", results_dir_path = "jpred_sspred/results")
+#' status(jobid = "jp_K46D05A", results_dir_path = "jpred_sspred/results", extract = TRUE)
 #' }
-status <- function(job_id, results_dir_path = NULL, extract = FALSE, 
+status <- function(jobid, results_dir_path = NULL, extract = FALSE, 
                    max_attempts = 10, wait_interval = 60, silent = FALSE,
                    host = "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest",
                    jpred4 = "http://www.compbio.dundee.ac.uk/jpred4") {
   if (!silent) {
     message("Your job status will be checked with the following parameters:")
-    message(paste("Job id:", job_id))
+    message(paste("Job id:", jobid))
     message(paste("Get results:", !is.null(results_dir_path)))
   }
   
-  job_url = paste(host, "job", "id", job_id, sep = "/")
+  job_url = paste(host, "job", "id", jobid, sep = "/")
   
   attempts <- 0
   while (attempts < max_attempts) {
@@ -293,11 +293,11 @@ status <- function(job_id, results_dir_path = NULL, extract = FALSE,
       
       if (!is.null(results_dir_path)) {
         dir.create(results_dir_path, showWarnings = FALSE)
-        results_dir_path <- file.path(results_dir_path, job_id)
+        results_dir_path <- file.path(results_dir_path, jobid)
         dir.create(results_dir_path, showWarnings = FALSE)
         
-        archive_url <- paste(jpred4, "results", job_id, paste0(job_id, ".tar.gz"), sep = "/")
-        archive_path <- file.path(results_dir_path, paste0(job_id, ".tar.gz"))
+        archive_url <- paste(jpred4, "results", jobid, paste0(jobid, ".tar.gz"), sep = "/")
+        archive_path <- file.path(results_dir_path, paste0(jobid, ".tar.gz"))
         
         download.file(archive_url, archive_path)
         
@@ -322,7 +322,7 @@ status <- function(job_id, results_dir_path = NULL, extract = FALSE,
 #' 
 #' Download results from JPred server.
 #'
-#' @param job_id Job id.
+#' @param jobid Job id.
 #' @param results_dir_path Directory path where to save results if job is finished.
 #' @param extract Extract or not results into directory (default = FALSE).
 #' @param max_attempts Maximum number of attempts to check job status (default = 10).
@@ -338,20 +338,20 @@ status <- function(job_id, results_dir_path = NULL, extract = FALSE,
 #' @examples
 #' \dontrun{
 #' ## Not run ---
-#' get_results(job_id = "jp_K46D05A")
-#' get_results(job_id = "jp_K46D05A", results_dir_path = "jpred_sspred/results")
-#' get_results(job_id = "jp_K46D05A", results_dir_path = "jpred_sspred/results", extract = TRUE)
+#' get_results(jobid = "jp_K46D05A")
+#' get_results(jobid = "jp_K46D05A", results_dir_path = "jpred_sspred/results")
+#' get_results(jobid = "jp_K46D05A", results_dir_path = "jpred_sspred/results", extract = TRUE)
 #' }
-get_results <- function(job_id, results_dir_path = NULL, extract = FALSE, 
+get_results <- function(jobid, results_dir_path = NULL, extract = FALSE, 
                         max_attempts = 10, wait_interval = 60, silent = FALSE,
                         host = "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest",
                         jpred4 = "http://www.compbio.dundee.ac.uk/jpred4") {
   
   if (is.null(results_dir_path)) {
-    results_dir_path <- file.path(getwd(), job_id)
+    results_dir_path <- file.path(getwd(), jobid)
   }
   
-  response = status(job_id = job_id, results_dir_path = results_dir_path, 
+  response = status(jobid = jobid, results_dir_path = results_dir_path, 
                     extract = extract, silent = silent)
   return(response)
 }

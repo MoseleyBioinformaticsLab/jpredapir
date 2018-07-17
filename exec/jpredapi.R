@@ -64,7 +64,7 @@ cli <- function(cmdargs) {
                       host = cmdargs$rest)
     
   } else if (cmdargs$status) {
-    jpredapir::status(job_id = cmdargs$jobid,
+    jpredapir::status(jobid = cmdargs$jobid,
                       results_dir_path = cmdargs$results,
                       extract = cmdargs$extract,
                       silent = cmdargs$silent,
@@ -74,7 +74,7 @@ cli <- function(cmdargs) {
                       jpred4 = cmdargs$jpred4)
   
   } else if (cmdargs$get_results) {
-    jpredapir::get_results(job_id = cmdargs$jobid,
+    jpredapir::get_results(jobid = cmdargs$jobid,
                            results_dir_path = cmdargs$results,
                            extract = cmdargs$extract,
                            silent = cmdargs$silent,
