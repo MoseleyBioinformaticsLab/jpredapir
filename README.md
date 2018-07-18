@@ -1,7 +1,7 @@
 # jpredapir
 
-[![Licence]](https://img.shields.io/github/license/mashape/apistatus.svg)
-[![Travis-CI Build Status]](https://travis-ci.org/MoseleyBioinformaticsLab/jpredapir.svg?branch=master)
+[![Licence](https://img.shields.io/github/license/mashape/apistatus.svg)](http://choosealicense.com/licenses/mit/)
+[![Travis-CI Build Status](https://travis-ci.org/MoseleyBioinformaticsLab/jpredapir.svg?branch=master)](https://travis-ci.org/MoseleyBioinformaticsLab/jpredapir)
 
 The `jpredapir` package provides a simple R interface for submitting
 and retrieving jobs from JPred: A Protein Secondary Structure Prediction Server
