@@ -4,13 +4,13 @@
 \alias{status}
 \title{Check status.}
 \usage{
-status(job_id, results_dir_path = NULL, extract = FALSE,
-  max_attempts = 10, wait_interval = 60, silent = FALSE,
+status(jobid, results_dir_path = NULL, extract = FALSE, max_attempts = 10,
+  wait_interval = 60, silent = FALSE,
   host = "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest",
   jpred4 = "http://www.compbio.dundee.ac.uk/jpred4")
 }
 \arguments{
-\item{job_id}{Job id.}
+\item{jobid}{Job id.}
 
 \item{results_dir_path}{Directory path where to save results if job is finished.}
 
@@ -35,8 +35,8 @@ Check status of the submitted job.
 \examples{
 \dontrun{
 ## Not run ---
-status(job_id = "jp_K46D05A")
-status(job_id = "jp_K46D05A", results_dir_path = "jpred_sspred/results")
-status(job_id = "jp_K46D05A", results_dir_path = "jpred_sspred/results", extract = TRUE)
+status(jobid = "jp_K46D05A")
+status(jobid = "jp_K46D05A", results_dir_path = "jpred_sspred/results")
+status(jobid = "jp_K46D05A", results_dir_path = "jpred_sspred/results", extract = TRUE)
 }
 }

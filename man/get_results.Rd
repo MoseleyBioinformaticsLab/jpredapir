@@ -4,13 +4,13 @@
 \alias{get_results}
 \title{Download results.}
 \usage{
-get_results(job_id, results_dir_path = NULL, extract = FALSE,
+get_results(jobid, results_dir_path = NULL, extract = FALSE,
   max_attempts = 10, wait_interval = 60, silent = FALSE,
   host = "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest",
   jpred4 = "http://www.compbio.dundee.ac.uk/jpred4")
 }
 \arguments{
-\item{job_id}{Job id.}
+\item{jobid}{Job id.}
 
 \item{results_dir_path}{Directory path where to save results if job is finished.}
 
@@ -35,8 +35,8 @@ Download results from JPred server.
 \examples{
 \dontrun{
 ## Not run ---
-get_results(job_id = "jp_K46D05A")
-get_results(job_id = "jp_K46D05A", results_dir_path = "jpred_sspred/results")
-get_results(job_id = "jp_K46D05A", results_dir_path = "jpred_sspred/results", extract = TRUE)
+get_results(jobid = "jp_K46D05A")
+get_results(jobid = "jp_K46D05A", results_dir_path = "jpred_sspred/results")
+get_results(jobid = "jp_K46D05A", results_dir_path = "jpred_sspred/results", extract = TRUE)
 }
 }
