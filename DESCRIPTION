@@ -4,8 +4,8 @@ Version: 0.1.0
 Authors@R: c(person("Andrey", "Smelter", email = "andrey.smelter@gmail.com",
                     role = c("aut", "cre")),
             (person(given = c("Robert", "M"), "Flight", email = "rflight79@gmail.com",
-            role = "aut")))
-Description: Provides an R based interface to the JPRED service.
+                    role = "aut")))
+Description: Provides an R based interface to the JPred service.
 Depends: R (>= 3.4.0)
 License: MIT + file LICENSE
 Encoding: UTF-8
