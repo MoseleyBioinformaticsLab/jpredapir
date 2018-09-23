@@ -28,9 +28,11 @@ For a complete list, use \code{library(help = "jpredapir")}.
 }
 
 \references{
+Browse documentation at: \url{https://moseleybioinformaticslab.github.io/jpredapir}
+
 Browse source code at: \url{https://github.com/MoseleyBioinformaticsLab/jpredapir}
 
 Report a bugs at: \url{https://github.com/MoseleyBioinformaticsLab/jpredapir/issues}
 
-JPred Server at: \url{http://www.compbio.dundee.ac.uk/jpred/}
+JPred Server at: \url{http://www.compbio.dundee.ac.uk/jpred}
 }
