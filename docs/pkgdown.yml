@@ -1,0 +1,7 @@
+pandoc: 1.17.2
+pkgdown: 1.1.0
+pkgdown_sha: ~
+articles:
+  tutorial_as_cli: tutorial_as_cli.html
+  tutorial_as_library: tutorial_as_library.html
+
