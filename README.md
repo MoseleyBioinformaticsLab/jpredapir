@@ -13,13 +13,13 @@ http://www.compbio.dundee.ac.uk/jpred4/api.shtml
 
 ## Links
 
-   * jpredapir [@GitHub](https://github.com/MoseleyBioinformaticsLab/jpredapir)
+* jpredapir [@GitHub](https://github.com/MoseleyBioinformaticsLab/jpredapir)
 
 
 ## Installation
 
-``` R
-# install.packages(devtools)
+```R
+install.packages(devtools)
 devtools::install_github("MoseleyBioinformaticsLab/jpredapir")
 ```
 
