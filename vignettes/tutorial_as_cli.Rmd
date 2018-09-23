@@ -51,7 +51,17 @@ Options:
 
 ## Find `jpredapir` CLI executable
 
+To find `jpredapi.R` executable start your `R` shell and type:
 
+```{r, eval = FALSE}
+shQuote(system.file("exec", "jpredapi.R", package = "jpredapir"))
+```
+
+Output:
+
+```
+'path/to/jpredapir/exec/jpredapi.R'
+```
 
 ## Print `jpredapir` help message
 
