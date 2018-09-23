@@ -8,15 +8,20 @@ Authors@R: c(person("Andrey", "Smelter", email = "andrey.smelter@gmail.com",
                     role = "aut",
                     comment = c(ORCID = "0000-0001-8141-7788")))
 Description: Provides an R based interface to the JPred service.
+URL: https://github.com/MoseleyBioinformaticsLab/jpredapir
+BugReports: https://github.com/MoseleyBioinformaticsLab/jpredapir/issues
 Depends: R (>= 3.4.0)
-License: MIT + file LICENSE
-Encoding: UTF-8
-LazyData: true
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.0.1
 Imports:
     httr,
     stringr
 Suggests: 
     testthat,
-    rprojroot
+    rprojroot,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+License: MIT + file LICENSE
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.0.1
+Encoding: UTF-8
