@@ -2,7 +2,7 @@
 % Please edit documentation in R/api.R
 \name{quota}
 \alias{quota}
-\title{Check quota.}
+\title{Check JPred REST interface quota.}
 \usage{
 quota(email, host = "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest",
   suffix = "quota", silent = FALSE)

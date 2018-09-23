@@ -19,7 +19,7 @@
 Version of JPred REST API.
 }
 \description{
-Check version of JPred REST API.
+Check version of JPred REST interface.
 }
 \examples{
 \dontrun{

@@ -2,7 +2,7 @@
 % Please edit documentation in R/api.R
 \name{status}
 \alias{status}
-\title{Check status.}
+\title{Check job status on JPred REST interface.}
 \usage{
 status(jobid, results_dir_path = NULL, extract = FALSE, max_attempts = 10,
   wait_interval = 60, silent = FALSE,

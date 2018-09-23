@@ -2,7 +2,7 @@
 % Please edit documentation in R/api.R
 \name{resolve_rest_format}
 \alias{resolve_rest_format}
-\title{Determine JPred REST submission format.}
+\title{Determine JPred REST interface submission format.}
 \usage{
 resolve_rest_format(mode, user_format)
 }

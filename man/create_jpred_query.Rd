@@ -2,7 +2,7 @@
 % Please edit documentation in R/api.R
 \name{create_jpred_query}
 \alias{create_jpred_query}
-\title{Create JPred parameters.}
+\title{Create JPred REST interface parameters.}
 \usage{
 create_jpred_query(rest_format, file = NULL, seq = NULL, skipPDB = TRUE,
   email = NULL, name = NULL, silent = FALSE)

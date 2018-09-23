@@ -2,7 +2,7 @@
 % Please edit documentation in R/api.R
 \name{submit}
 \alias{submit}
-\title{Submit job to JPred interface.}
+\title{Submit job to JPred REST interface.}
 \usage{
 submit(mode, user_format, file = NULL, seq = NULL, skipPDB = TRUE,
   email = NULL, name = NULL, silent = FALSE,

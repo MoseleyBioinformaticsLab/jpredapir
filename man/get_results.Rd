@@ -2,7 +2,7 @@
 % Please edit documentation in R/api.R
 \name{get_results}
 \alias{get_results}
-\title{Download results.}
+\title{Download results from JPred server.}
 \usage{
 get_results(jobid, results_dir_path = NULL, extract = FALSE,
   max_attempts = 10, wait_interval = 60, silent = FALSE,
