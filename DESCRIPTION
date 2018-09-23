@@ -4,8 +4,8 @@ Version: 0.1.0.9000
 Authors@R: c(person("Andrey", "Smelter", email = "andrey.smelter@gmail.com",
                     role = c("aut", "cre"),
                     comment = c(ORCID = "0000-0003-3056-9225")),
-            (person(given = c("Robert", "M"), "Flight", email = "rflight79@gmail.com",
-                    role = "aut"),
+             person(given = c("Robert", "M"), "Flight", email = "rflight79@gmail.com",
+                    role = "aut",
                     comment = c(ORCID = "0000-0001-8141-7788")))
 Description: Provides an R based interface to the JPred service.
 Depends: R (>= 3.4.0)
