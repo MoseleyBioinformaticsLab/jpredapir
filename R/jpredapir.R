@@ -20,9 +20,10 @@
 #' \item \code{jpredapir::check_rest_version()} Check version of JPred REST interface.
 #' }
 #'
+#' @references Browse documentation at: \url{https://moseleybioinformaticslab.github.io/jpredapir}
 #' @references Browse source code at: \url{https://github.com/MoseleyBioinformaticsLab/jpredapir}
 #' @references Report a bugs at: \url{https://github.com/MoseleyBioinformaticsLab/jpredapir/issues}
-#' @references JPred Server at: \url{http://www.compbio.dundee.ac.uk/jpred/}
+#' @references JPred Server at: \url{http://www.compbio.dundee.ac.uk/jpred}
 #'
 #' @docType package
 #' @name jpredapir
