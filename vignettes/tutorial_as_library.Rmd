@@ -1,0 +1,228 @@
+---
+title: "The jpredapir Tutorial: Using jpredapir as a Library"
+author: "Andrey Smelter"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{The jpredapir Tutorial: Using jpredapir as a Library}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+The `jpredapir` package provides functions to submit, check status, and 
+retrieve results from JPred: A Secondary Structure Prediction Server 
+([JPred](http://www.compbio.dundee.ac.uk/jpred/)).
+
+
+## Importing `jpredapir` library
+
+```{r, eval = FALSE}
+library(jpredapir)
+```
+
+## Print `jpredapir` help message
+
+```{r, eval = FALSE}
+help("jpredapir")
+```
+
+## Print `jpredapir` package version
+
+```{r, eval = FALSE}
+packageVersion("jpredapir")
+```
+
+## Submit jobs to JPred server
+
+```{r, eval = FALSE}
+submit(mode = "single", user_format = "raw", seq = "MQVWPIEGIKKFETLSYLPP")
+```
+
+### Submit single sequence in `raw` format using `file` parameter
+
+```{r, eval = FALSE}
+submit(mode = "single", user_format = "raw", file = "inst/exampledata/single_raw.example")
+```
+
+Content of `single_raw.example` file:
+
+```
+MQVWPIEGIKKFETLSYLPPLTVEDLLKQIEYLLRSKWVPCLEFSKVGFVYRENHRSPGYYDGRYWTMWKLPMFGCTDATQVLKELEEAKKAYPDAFVRIIGFDNVRQVQLISFIAYKPPGC
+```
+
+### Submit single sequence in `fasta` format using `file` parameter
+
+```{r, eval = FALSE}
+submit(mode = "single", user_format = "fasta", file = "inst/exampledata/single_fasta.example")
+```
+
+Content of `single_fasta.example` file:
+
+```
+>my test sequence
+MQVWPIEGIKKFETLSYLPPLTVEDLLKQIEYLLRSKWVPCLEFSKVGFVYRENHRSPGYYDGRYWTMWKLPMFGCTDATQVLKELEEAKKAYPDAFVRIIGFDNVRQVQLISFIAYKPPGC
+```
+
+### Submit multiple sequences in `fasta` format using `file` parameter
+
+```{r, eval = FALSE}
+submit(mode = "batch", user_format = "fasta", file = "inst/exampledata/batch_fasta.example", email = "name@domain.com")
+```
+
+Content of `batch_fasta.example` file:
+
+```
+>my_seq1
+MKFLVLLFNILCLFPILGADELVMSPIPTTDVQPKVTFDINSEVSSGPLYLNPVEMAGVK
+YLQLQRQPGVQVHKVVEGDIVIWENEEMPLYTCAIVTQNEVPYMAYVELLEDPDLIFFLK
+EGDQWAPIPEDQYLARLQQLRQQIHTESFFSLNLSFQHENYKYEMVSSFQHSIKMVVFTP
+KNGHICKMVYDKNIRIFKALYNEYVTSVIGFFRGLKLLLLNIFVIDDRGMIGNKYFQLLD
+DKYAPISVQGYVATIPKLKDFAEPYHPIILDISDIDYVNFYLGDATYHDPGFKIVPKTPQ
+CITKVVDGNEVIYESSNPSVECVYKVTYYDKKNESMLRLDLNHSPPSYTSYYAKREGVWV
+TSTYIDLEEKIEELQDHRSTELDVMFMSDKDLNVVPLTNGNLEYFMVTPKPHRDIIIVFD
+GSEVLWYYEGLENHLVCTWIYVTEGAPRLVHLRVKDRIPQNTDIYMVKFGEYWVRISKTQ
+>my_seq2
+MASVKSSSSSSSSSFISLLLLILLVIVLQSQVIECQPQQSCTASLTGLNVCAPFLVPGSP
+TASTECCNAVQSINHDCMCNTMRIAAQIPAQCNLPPLSCSAN
+>my_seq3
+MEKKSIAGLCFLFLVLFVAQEVVVQSEAKTCENLVDTYRGPCFTTGSCDDHCKNKEHLLS
+GRCRDDVRCWCTRNC
+```
+
+### Submit multiple sequence alignment files in `fasta` format
+
+```{r, eval = FALSE}
+submit(mode = "msa", user_format = "fasta", file = "inst/exampledata/msa_fasta.example", email = "name@domain.com")
+```
+
+Content of `msa_fasta.example` file:
+
+```
+>QUERY_1
+MQVWPIEGIKKFETLSYLPPLTVEDLLKQIEYLLRSKWVPCLEFSKVGFVYRENHRSPGYYDGRYWTMWKLP
+MFGCTDATQVLKELEEAKKAYPDAFVRIIGFDNVRQVQLISFIAYKPPGC
+>UniRef90_Q40250_2
+MKVWPPIGLKKYETLSYLPPLSDEALSKEIDYLIRNKWIPCLEFEEHGFVYREHHHSPGYYDGRYWTMWKLP
+MFGCTDSAQVMKEVGECKKEYPNAFIRVIGFDNIRQVQCISFIVAKPPGV
+>UniRef90_A7YVW5_3
+MQVWPPLGKRKFETLSYLPPLPVDALLKQIDYLIRSGWIPCIEFTVEGFVYREHHHSPGYYDGRYWTMWKLP
+MYGCTDSTQVLAEVEANKKEYPNSYIRIIGFDNKRQVQCVSFIVHTPPS-
+>UniRef90_P04714_4
+MQVWPPYGKKKYETLSYLPDLTDEQLLKEIEYLLNKGWVPCLEFTEHGFVYREYHASPRYYDGRYWTMWKLP
+MFGCTDATQVLGELQEAKKAYPNAWIRIIGFDNVRQVQCISFIAYKPPG-
+>UniRef90_W9RUU9_5
+MQVWPPRGKLKFETLSYLPDLTDEQLLKEIDYLLRSNWIPCLEFEVKAHIYRENNRSPGYYDGRYWTMWKLP
+MFGCTDATQVLAEVQETKKAYPDAHVRIIGFDNNRQVQCISFIAYKPPA-
+```
+
+### Submit multiple sequence alignment files in `msf` format
+
+```{r, eval = FALSE}
+submit(mode = "msa", user_format = "msf", file = "inst/exampledata/msa_msf.example", email = "name@domain.com")
+```
+
+Content of `msa_msf.example` file:
+
+```
+
+ /tmp/filelPdICy  MSF: 108  Type: N  January 01, 1776  12:00  Check: 2741 ..
+
+ Name: 0_1a             Len:   108  Check:  4063  Weight:  1.00
+ Name: 1_MA             Len:   108  Check:  4875  Weight:  1.00
+ Name: 2_KE             Len:   108  Check:   449  Weight:  1.00
+ Name: 3_NC             Len:   108  Check:  3354  Weight:  1.00
+
+//
+
+           0_1a  APAFSVSPAS GASDGQSVSV SVAAAGETYY IAQCAPVGGQ DACNPATATS
+           1_MA  APGVTVTPAT GLSNGQTVTV SATTPGTVYH VGQCAVVEGV IGCDATTSTD
+           2_KE  SAAVSVSPAT GLADGATVTV SASATSTSAT ALQCAILAGR GACNVAEFHD
+           3_NC  APTATVTPSS GLSDGTVVKV AGAQAGTAYD VGQCAWVDGV LACNPADFSS
+
+           0_1a  FTTDASGAAS FSFTVRKSYA GQTPSGTPVG SVDCATDACN LGAGNSGLNL
+           1_MA  VTADAAGKIT AQLKVHSSFQ AVVANGTPWG TVNCKVVSCS AGLGSDSGEG
+           2_KE  FSLSG.GEGT TSVVVRRSFT GYVPDGPEVG AVDCDTAPCE IVVGGNTGEY
+           3_NC  VTADANGSAS TSLTVRRSFE GFLFDGTRWG TVDCTTAACQ VGLSDAAGNG
+
+           0_1a  GHVALTFG
+           1_MA  AAQAITFA
+           2_KE  GNAAISFG
+           3_NC  PGVAISFN
+```
+
+### Submit multiple sequence alignment files in `blc` format
+
+```{r, eval = FALSE}
+submit(mode = "msa", user_format = "blc", file = "inst/exampledata/msa_blc.example", email = "name@domain.com")
+```
+
+Content of `msa_blc.example` file:
+
+```
+>0_1a  Name
+>1_MA  Name
+>2_KE  Name
+>3_NC  Name
+* iteration 1
+AASA
+PPAP
+AGAT
+FVVA
+STST
+VVVV
+STST
+PPPP
+AAAS
+*
+```
+
+## Check job status on JPred server
+
+### Check single job status using `jobid`
+
+```{r, eval = FALSE}
+status(jobid = "jp_K46D05A")
+```
+
+### Check single job status using `jobid` and retrieve results
+
+```{r, eval = FALSE}
+status(jobid = "jp_K46D05A", results_dir_path = "jpred_sspred/results")
+```
+
+### Check single job status using `jobid`, retrieve results, and decompress archive
+
+```{r, eval = FALSE}
+status(jobid = "jp_K46D05A", results_dir_path = "jpred_sspred/results", extract = TRUE)
+```
+
+## Retrieve results from JPred server
+
+### Retrieve results using `jobid`
+
+```{r, eval = FALSE}
+get_results(jobid = "jp_K46D05A", results_dir_path = "jpred_sspred/results")
+```
+
+### Retrieve results using `jobid` and decompress archive
+
+```{r, eval = FALSE}
+get_results(jobid = "jp_K46D05A", results_dir_path = "jpred_sspred/results", extract = TRUE)
+```
+
+
+## Check quota
+
+### Check how many jobs you have already submitted on a given day
+
+```{r, eval = FALSE}
+quota(email = "name@domain.com")
+```
+
+## Check JPred REST interface version
+
+### Check version of JPred REST interface
+
+```{r, eval = FALSE}
+check_rest_version()
+```
