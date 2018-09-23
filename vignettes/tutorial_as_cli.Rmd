@@ -1,0 +1,263 @@
+---
+title: "The jpredapir Tutorial: Using jpredapir Command Line Interface"
+author: "Andrey Smelter"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{The jpredapir Tutorial: Using jpredapir Command Line Interface}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+The `jpredapir` package provides functions to submit, check status, and 
+retrieve results from JPred: A Secondary Structure Prediction Server 
+([JPred](http://www.compbio.dundee.ac.uk/jpred/)).
+
+## Command Line Interface
+
+```
+jpredapir command-line interface
+
+The JPred API allows users to submit jobs from the command-line.
+
+Usage:
+    jpredapi.R submit (--mode=<mode> --format=<format>) (--file=<filename> | --seq=<sequence>) [--email=<name@domain.com>] [--name=<name>] [--rest=<address>] [--skipPDB] [--silent]
+    jpredapi.R status (--jobid=<id>) [--results=<path>] [--wait=<interval>] [--attempts=<max>] [--rest=<address>] [--jpred4=<address>] [--extract] [--silent]
+    jpredapi.R get_results (--jobid=<id>) [--results=<path>] [--wait=<interval>] [--attempts=<max>] [--rest=<address>] [--jpred4=<address>] [--extract] [--silent]
+    jpredapi.R quota (--email=<name@domain.com>) [--silent]
+    jpredapi.R check_rest_version [--rest=<address>] [--silent]
+    jpredapi.R -h | --help
+    jpredapi.R -v | --version
+
+Options:
+    -h, --help                 Show this help message.
+    -v, --version              Show jpredapir package version.
+    --silent                   Do not print messages.
+    --extract                  Extract results tar.gz archive.
+    --skipPDB                  PDB check.
+    --mode=<mode>              Submission mode, possible values: single, batch, msa.
+    --format=<format>          Submission format, possible values: raw, fasta, msf, blc.
+    --file=<filename>          Filename of a file with the job input (sequence(s)).
+    --seq=<sequence>           Instead of passing input file, for single-sequence submission.
+    --email=<name@domain.com>  E-mail address where job report will be sent (optional for all but batch submissions).
+    --name=<name>              Job name.
+    --jobid=<id>               Job id.
+    --results=<path>           Path to directory where to save archive with results.
+    --rest=<address>           REST address of server [default: http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest].
+    --jpred4=<address>         Address of Jpred4 server [default: http://www.compbio.dundee.ac.uk/jpred4].
+    --wait=<interval>          Wait interval before retrying to check job status in seconds [default: 60].
+    --attempts=<max>           Maximum number of attempts to check job status [default: 10].
+```
+
+## Find `jpredapir` CLI executable
+
+
+
+## Print `jpredapir` help message
+
+```{r, engine = 'bash', eval = FALSE}
+$ Rscript jpredapir/exec/jpredapi.R --help
+```
+
+## Print `jpredapir` package version
+
+```{r, engine = 'bash', eval = FALSE}
+$ Rscript jpredapir/exec/jpredapi.R --version
+```
+
+## Submit jobs to JPred server
+
+### Submit single sequence in `raw` format using `--seq` parameter
+
+```{r, engine = 'bash', eval = FALSE}
+Rscript jpredapir/exec/jpredapi.R submit --mode=single --format=raw --seq=MQVWPIEGIKKFETLSYLPP
+```
+
+### Submit single sequence in `raw` format using `--file` parameter
+
+```{r, engine = 'bash', eval = FALSE}
+Rscript jpredapir/exec/jpredapi.R submit --mode=single --format=raw --file=inst/exampledata/single_raw.example
+```
+
+Content of `single_raw.example` file:
+
+```
+MQVWPIEGIKKFETLSYLPPLTVEDLLKQIEYLLRSKWVPCLEFSKVGFVYRENHRSPGYYDGRYWTMWKLPMFGCTDATQVLKELEEAKKAYPDAFVRIIGFDNVRQVQLISFIAYKPPGC
+```
+
+### Submit single sequence in `fasta` format using `--file` parameter
+
+```{r, engine = 'bash', eval = FALSE}
+Rscript jpredapir/exec/jpredapi.R submit --mode=single --format=fasta --file=inst/exampledata/single_fasta.example
+```
+
+Content of `single_fasta.example` file:
+
+```
+>my test sequence
+MQVWPIEGIKKFETLSYLPPLTVEDLLKQIEYLLRSKWVPCLEFSKVGFVYRENHRSPGYYDGRYWTMWKLPMFGCTDATQVLKELEEAKKAYPDAFVRIIGFDNVRQVQLISFIAYKPPGC
+```
+
+### Submit multiple sequences in `fasta` format using `--file` parameter
+
+```{r, engine = 'bash', eval = FALSE}
+Rscript jpredapir/exec/jpredapi.R submit --mode=batch --format=fasta --file=inst/exampledata/batch_fasta.example --email=name@domain.com
+```
+
+Content of `batch_fasta.example` file:
+
+```
+>my_seq1
+MKFLVLLFNILCLFPILGADELVMSPIPTTDVQPKVTFDINSEVSSGPLYLNPVEMAGVK
+YLQLQRQPGVQVHKVVEGDIVIWENEEMPLYTCAIVTQNEVPYMAYVELLEDPDLIFFLK
+EGDQWAPIPEDQYLARLQQLRQQIHTESFFSLNLSFQHENYKYEMVSSFQHSIKMVVFTP
+KNGHICKMVYDKNIRIFKALYNEYVTSVIGFFRGLKLLLLNIFVIDDRGMIGNKYFQLLD
+DKYAPISVQGYVATIPKLKDFAEPYHPIILDISDIDYVNFYLGDATYHDPGFKIVPKTPQ
+CITKVVDGNEVIYESSNPSVECVYKVTYYDKKNESMLRLDLNHSPPSYTSYYAKREGVWV
+TSTYIDLEEKIEELQDHRSTELDVMFMSDKDLNVVPLTNGNLEYFMVTPKPHRDIIIVFD
+GSEVLWYYEGLENHLVCTWIYVTEGAPRLVHLRVKDRIPQNTDIYMVKFGEYWVRISKTQ
+>my_seq2
+MASVKSSSSSSSSSFISLLLLILLVIVLQSQVIECQPQQSCTASLTGLNVCAPFLVPGSP
+TASTECCNAVQSINHDCMCNTMRIAAQIPAQCNLPPLSCSAN
+>my_seq3
+MEKKSIAGLCFLFLVLFVAQEVVVQSEAKTCENLVDTYRGPCFTTGSCDDHCKNKEHLLS
+GRCRDDVRCWCTRNC
+```
+
+### Submit multiple sequence alignment files in `fasta` format
+
+```{r, engine = 'bash', eval = FALSE}
+Rscript jpredapir/exec/jpredapi.R submit --mode=msa --format=fasta --file=inst/exampledata/msa_fasta.example --email=name@domain.com
+```
+
+Content of `msa_fasta.example` file:
+
+```
+>QUERY_1
+MQVWPIEGIKKFETLSYLPPLTVEDLLKQIEYLLRSKWVPCLEFSKVGFVYRENHRSPGYYDGRYWTMWKLP
+MFGCTDATQVLKELEEAKKAYPDAFVRIIGFDNVRQVQLISFIAYKPPGC
+>UniRef90_Q40250_2
+MKVWPPIGLKKYETLSYLPPLSDEALSKEIDYLIRNKWIPCLEFEEHGFVYREHHHSPGYYDGRYWTMWKLP
+MFGCTDSAQVMKEVGECKKEYPNAFIRVIGFDNIRQVQCISFIVAKPPGV
+>UniRef90_A7YVW5_3
+MQVWPPLGKRKFETLSYLPPLPVDALLKQIDYLIRSGWIPCIEFTVEGFVYREHHHSPGYYDGRYWTMWKLP
+MYGCTDSTQVLAEVEANKKEYPNSYIRIIGFDNKRQVQCVSFIVHTPPS-
+>UniRef90_P04714_4
+MQVWPPYGKKKYETLSYLPDLTDEQLLKEIEYLLNKGWVPCLEFTEHGFVYREYHASPRYYDGRYWTMWKLP
+MFGCTDATQVLGELQEAKKAYPNAWIRIIGFDNVRQVQCISFIAYKPPG-
+>UniRef90_W9RUU9_5
+MQVWPPRGKLKFETLSYLPDLTDEQLLKEIDYLLRSNWIPCLEFEVKAHIYRENNRSPGYYDGRYWTMWKLP
+MFGCTDATQVLAEVQETKKAYPDAHVRIIGFDNNRQVQCISFIAYKPPA-
+```
+
+### Submit multiple sequence alignment files in `msf` format
+
+```{r, engine = 'bash', eval = FALSE}
+Rscript jpredapir/exec/jpredapi.R submit --mode=msa --format=msf --file=inst/exampledata/msa_msf.example --email=name@domain.com
+```
+
+Content of `msa_msf.example` file:
+
+```
+
+ /tmp/filelPdICy  MSF: 108  Type: N  January 01, 1776  12:00  Check: 2741 ..
+
+ Name: 0_1a             Len:   108  Check:  4063  Weight:  1.00
+ Name: 1_MA             Len:   108  Check:  4875  Weight:  1.00
+ Name: 2_KE             Len:   108  Check:   449  Weight:  1.00
+ Name: 3_NC             Len:   108  Check:  3354  Weight:  1.00
+
+//
+
+           0_1a  APAFSVSPAS GASDGQSVSV SVAAAGETYY IAQCAPVGGQ DACNPATATS
+           1_MA  APGVTVTPAT GLSNGQTVTV SATTPGTVYH VGQCAVVEGV IGCDATTSTD
+           2_KE  SAAVSVSPAT GLADGATVTV SASATSTSAT ALQCAILAGR GACNVAEFHD
+           3_NC  APTATVTPSS GLSDGTVVKV AGAQAGTAYD VGQCAWVDGV LACNPADFSS
+
+           0_1a  FTTDASGAAS FSFTVRKSYA GQTPSGTPVG SVDCATDACN LGAGNSGLNL
+           1_MA  VTADAAGKIT AQLKVHSSFQ AVVANGTPWG TVNCKVVSCS AGLGSDSGEG
+           2_KE  FSLSG.GEGT TSVVVRRSFT GYVPDGPEVG AVDCDTAPCE IVVGGNTGEY
+           3_NC  VTADANGSAS TSLTVRRSFE GFLFDGTRWG TVDCTTAACQ VGLSDAAGNG
+
+           0_1a  GHVALTFG
+           1_MA  AAQAITFA
+           2_KE  GNAAISFG
+           3_NC  PGVAISFN
+```
+
+### Submit multiple sequence alignment files in `blc` format
+
+```{r, engine = 'bash', eval = FALSE}
+Rscript jpredapir/exec/jpredapi.R submit --mode=msa --format=blc --file=inst/exampledata/msa_blc.example --email=name@domain.com
+```
+
+Content of `msa_blc.example` file:
+
+```
+>0_1a  Name
+>1_MA  Name
+>2_KE  Name
+>3_NC  Name
+* iteration 1
+AASA
+PPAP
+AGAT
+FVVA
+STST
+VVVV
+STST
+PPPP
+AAAS
+*
+```
+
+## Check job status on JPred server
+
+### Check single job status using `jobid`
+
+```{r, engine = 'bash', eval = FALSE}
+Rscript jpredapir/exec/jpredapi.R status --jobid=jp_K46D05A
+```
+
+### Check single job status using `jobid` and retrieve results
+
+```{r, engine = 'bash', eval = FALSE}
+Rscript jpredapir/exec/jpredapi.R status --jobid=jp_K46D05A --results=jpred_sspred/results
+```
+
+### Check single job status using `jobid`, retrieve results, and decompress archive
+
+```{r, engine = 'bash', eval = FALSE}
+Rscript jpredapir/exec/jpredapi.R status --jobid=jp_K46D05A --results=jpred_sspred/results --extract
+```
+
+## Retrieve results from JPred server
+
+### Retrieve results using `jobid`
+
+```{r, engine = 'bash', eval = FALSE}
+Rscript jpredapir/exec/jpredapi.R get_results --jobid=jp_K46D05A --results=jpred_sspred/results
+```
+
+### Retrieve results using `jobid` and decompress archive
+
+```{r, engine = 'bash', eval = FALSE}
+Rscript jpredapir/exec/jpredapi.R get_results --jobid=jp_K46D05A --results=jpred_sspred/results --extract
+```
+
+## Check quota
+
+### Check how many jobs you have already submitted on a given day
+
+```{r, engine = 'bash', eval = FALSE}
+Rscript jpredapir/exec/jpredapi.R quota --email=name@domain.com
+```
+
+## Check JPred REST interface version
+
+### Check version of JPred REST interface
+
+```{r, engine = 'bash', eval = FALSE}
+Rscript jpredapir/exec/jpredapi.R check_rest_version
+```
+
