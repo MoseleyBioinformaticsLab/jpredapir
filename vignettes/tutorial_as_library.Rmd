@@ -20,7 +20,7 @@ retrieve results from JPred: A Secondary Structure Prediction Server
 library(jpredapir)
 ```
 
-## Print `jpredapir` help message
+## Print `jpredapir` package help message
 
 ```{r, eval = FALSE}
 help("jpredapir")

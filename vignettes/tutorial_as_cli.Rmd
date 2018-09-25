@@ -63,7 +63,7 @@ Output:
 'path/to/jpredapir/exec/jpredapi.R'
 ```
 
-## Print `jpredapir` help message
+## Print `jpredapir` CLI help message
 
 ```{r, engine = 'bash', eval = FALSE}
 $ Rscript jpredapir/exec/jpredapi.R --help
