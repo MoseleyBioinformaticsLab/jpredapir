@@ -32,7 +32,23 @@ help("jpredapir")
 packageVersion("jpredapir")
 ```
 
-## Submit jobs to JPred server
+## Submitting jobs to JPred server
+
+Note that the examples below are **not run**, due to needing access to the server. They do illustrate how to submit jobs
+in various formats, however.
+
+There are various example inputs in the `exampledata` directory that accompanies this package. The full list of files can
+be found by running the command below on your own installation:
+
+```{r, eval = FALSE}
+dir(system.file("exampledata", package = "jpredapir"), full.names = TRUE)
+```
+
+These files demonstrate the different types of input that can be used with `jpred`,
+and also provide examples that can be used yourself for testing submission
+and the returned results.
+
+### Submit a single `raw` sequence
 
 ```{r, eval = FALSE}
 submit(mode = "single", user_format = "raw", seq = "MQVWPIEGIKKFETLSYLPP")
@@ -41,139 +57,77 @@ submit(mode = "single", user_format = "raw", seq = "MQVWPIEGIKKFETLSYLPP")
 ### Submit single sequence in `raw` format using `file` parameter
 
 ```{r, eval = FALSE}
-submit(mode = "single", user_format = "raw", file = "inst/exampledata/single_raw.example")
+submit(mode = "single", user_format = "raw", file = system.file("exampledata/single_raw.example", package = "jpredapir"))
 ```
 
 Content of `single_raw.example` file:
 
-```
-MQVWPIEGIKKFETLSYLPPLTVEDLLKQIEYLLRSKWVPCLEFSKVGFVYRENHRSPGYYDGRYWTMWKLPMFGCTDATQVLKELEEAKKAYPDAFVRIIGFDNVRQVQLISFIAYKPPGC
+```{r, echo = FALSE}
+cat(scan(use_file, what = character(), quiet = TRUE), sep = "\n")
 ```
 
 ### Submit single sequence in `fasta` format using `file` parameter
 
 ```{r, eval = FALSE}
-submit(mode = "single", user_format = "fasta", file = "inst/exampledata/single_fasta.example")
+submit(mode = "single", user_format = "fasta", file = system.file("exampledata/single_fasta.example", package = "jpredapir"))
 ```
 
 Content of `single_fasta.example` file:
 
-```
->my test sequence
-MQVWPIEGIKKFETLSYLPPLTVEDLLKQIEYLLRSKWVPCLEFSKVGFVYRENHRSPGYYDGRYWTMWKLPMFGCTDATQVLKELEEAKKAYPDAFVRIIGFDNVRQVQLISFIAYKPPGC
+```{r, echo = FALSE}
+cat(scan(system.file("exampledata/single_fasta.example", package = "jpredapir"), what = character(), sep = "\n", quiet = TRUE), sep = "\n")
 ```
 
 ### Submit multiple sequences in `fasta` format using `file` parameter
 
 ```{r, eval = FALSE}
-submit(mode = "batch", user_format = "fasta", file = "inst/exampledata/batch_fasta.example", email = "name@domain.com")
+submit(mode = "batch", user_format = "fasta", file = system.file("exampledata/batch_fasta.example", package = "jpredapir"), email = "name@domain.com")
 ```
 
 Content of `batch_fasta.example` file:
 
-```
->my_seq1
-MKFLVLLFNILCLFPILGADELVMSPIPTTDVQPKVTFDINSEVSSGPLYLNPVEMAGVK
-YLQLQRQPGVQVHKVVEGDIVIWENEEMPLYTCAIVTQNEVPYMAYVELLEDPDLIFFLK
-EGDQWAPIPEDQYLARLQQLRQQIHTESFFSLNLSFQHENYKYEMVSSFQHSIKMVVFTP
-KNGHICKMVYDKNIRIFKALYNEYVTSVIGFFRGLKLLLLNIFVIDDRGMIGNKYFQLLD
-DKYAPISVQGYVATIPKLKDFAEPYHPIILDISDIDYVNFYLGDATYHDPGFKIVPKTPQ
-CITKVVDGNEVIYESSNPSVECVYKVTYYDKKNESMLRLDLNHSPPSYTSYYAKREGVWV
-TSTYIDLEEKIEELQDHRSTELDVMFMSDKDLNVVPLTNGNLEYFMVTPKPHRDIIIVFD
-GSEVLWYYEGLENHLVCTWIYVTEGAPRLVHLRVKDRIPQNTDIYMVKFGEYWVRISKTQ
->my_seq2
-MASVKSSSSSSSSSFISLLLLILLVIVLQSQVIECQPQQSCTASLTGLNVCAPFLVPGSP
-TASTECCNAVQSINHDCMCNTMRIAAQIPAQCNLPPLSCSAN
->my_seq3
-MEKKSIAGLCFLFLVLFVAQEVVVQSEAKTCENLVDTYRGPCFTTGSCDDHCKNKEHLLS
-GRCRDDVRCWCTRNC
+```{r, echo = FALSE}
+cat(scan(system.file("exampledata/batch_fasta.example", package = "jpredapir"),
+  what = character(), sep = "\n", quiet = TRUE), sep = "\n")
 ```
 
 ### Submit multiple sequence alignment files in `fasta` format
 
 ```{r, eval = FALSE}
-submit(mode = "msa", user_format = "fasta", file = "inst/exampledata/msa_fasta.example", email = "name@domain.com")
+submit(mode = "msa", user_format = "fasta", file = system.file("exampledata/msa_fasta.example", package = "jpredapir"), email = "name@domain.com")
 ```
 
 Content of `msa_fasta.example` file:
 
-```
->QUERY_1
-MQVWPIEGIKKFETLSYLPPLTVEDLLKQIEYLLRSKWVPCLEFSKVGFVYRENHRSPGYYDGRYWTMWKLP
-MFGCTDATQVLKELEEAKKAYPDAFVRIIGFDNVRQVQLISFIAYKPPGC
->UniRef90_Q40250_2
-MKVWPPIGLKKYETLSYLPPLSDEALSKEIDYLIRNKWIPCLEFEEHGFVYREHHHSPGYYDGRYWTMWKLP
-MFGCTDSAQVMKEVGECKKEYPNAFIRVIGFDNIRQVQCISFIVAKPPGV
->UniRef90_A7YVW5_3
-MQVWPPLGKRKFETLSYLPPLPVDALLKQIDYLIRSGWIPCIEFTVEGFVYREHHHSPGYYDGRYWTMWKLP
-MYGCTDSTQVLAEVEANKKEYPNSYIRIIGFDNKRQVQCVSFIVHTPPS-
->UniRef90_P04714_4
-MQVWPPYGKKKYETLSYLPDLTDEQLLKEIEYLLNKGWVPCLEFTEHGFVYREYHASPRYYDGRYWTMWKLP
-MFGCTDATQVLGELQEAKKAYPNAWIRIIGFDNVRQVQCISFIAYKPPG-
->UniRef90_W9RUU9_5
-MQVWPPRGKLKFETLSYLPDLTDEQLLKEIDYLLRSNWIPCLEFEVKAHIYRENNRSPGYYDGRYWTMWKLP
-MFGCTDATQVLAEVQETKKAYPDAHVRIIGFDNNRQVQCISFIAYKPPA-
+```{r, echo = FALSE}
+cat(scan(system.file("exampledata/msa_fasta.example", package = "jpredapir"), what = character(),
+sep = "\n", quiet = TRUE), sep = "\n")
 ```
 
 ### Submit multiple sequence alignment files in `msf` format
 
 ```{r, eval = FALSE}
-submit(mode = "msa", user_format = "msf", file = "inst/exampledata/msa_msf.example", email = "name@domain.com")
+submit(mode = "msa", user_format = "msf", file = system.file("exampledata/msa_msf.example", package = "jpredapir"), email = "name@domain.com")
 ```
 
 Content of `msa_msf.example` file:
 
-```
-
- /tmp/filelPdICy  MSF: 108  Type: N  January 01, 1776  12:00  Check: 2741 ..
-
- Name: 0_1a             Len:   108  Check:  4063  Weight:  1.00
- Name: 1_MA             Len:   108  Check:  4875  Weight:  1.00
- Name: 2_KE             Len:   108  Check:   449  Weight:  1.00
- Name: 3_NC             Len:   108  Check:  3354  Weight:  1.00
-
-//
-
-           0_1a  APAFSVSPAS GASDGQSVSV SVAAAGETYY IAQCAPVGGQ DACNPATATS
-           1_MA  APGVTVTPAT GLSNGQTVTV SATTPGTVYH VGQCAVVEGV IGCDATTSTD
-           2_KE  SAAVSVSPAT GLADGATVTV SASATSTSAT ALQCAILAGR GACNVAEFHD
-           3_NC  APTATVTPSS GLSDGTVVKV AGAQAGTAYD VGQCAWVDGV LACNPADFSS
-
-           0_1a  FTTDASGAAS FSFTVRKSYA GQTPSGTPVG SVDCATDACN LGAGNSGLNL
-           1_MA  VTADAAGKIT AQLKVHSSFQ AVVANGTPWG TVNCKVVSCS AGLGSDSGEG
-           2_KE  FSLSG.GEGT TSVVVRRSFT GYVPDGPEVG AVDCDTAPCE IVVGGNTGEY
-           3_NC  VTADANGSAS TSLTVRRSFE GFLFDGTRWG TVDCTTAACQ VGLSDAAGNG
-
-           0_1a  GHVALTFG
-           1_MA  AAQAITFA
-           2_KE  GNAAISFG
-           3_NC  PGVAISFN
+```{r, echo = FALSE}
+cat(scan(system.file("exampledata/msa_msf.example", package = "jpredapir"), what = character(),
+sep = "\n", quiet = TRUE), sep = "\n")
 ```
 
 ### Submit multiple sequence alignment files in `blc` format
 
 ```{r, eval = FALSE}
-submit(mode = "msa", user_format = "blc", file = "inst/exampledata/msa_blc.example", email = "name@domain.com")
+submit(mode = "msa", user_format = "blc", file = system.file("exampledata/msa_blc.example", package = "jpredapir"), email = "name@domain.com")
 ```
 
 Content of `msa_blc.example` file:
 
-```
->0_1a  Name
->1_MA  Name
->2_KE  Name
->3_NC  Name
-* iteration 1
-AASA
-PPAP
-AGAT
-FVVA
-STST
-VVVV
-STST
-PPPP
-AAAS
-*
+```{r, echo = FALSE}
+cat(scan(system.file("exampledata/msa_blc.example", package = "jpredapir"), what = character(),
+sep = "\n", quiet = TRUE), sep = "\n")
 ```
 
 ## Check job status on JPred server
