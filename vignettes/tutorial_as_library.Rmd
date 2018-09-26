@@ -63,7 +63,7 @@ submit(mode = "single", user_format = "raw", file = system.file("exampledata/sin
 Content of `single_raw.example` file:
 
 ```{r, echo = FALSE}
-cat(scan(use_file, what = character(), quiet = TRUE), sep = "\n")
+cat(scan(system.file("exampledata/single_raw.example", package = "jpredapir"), what = character(), sep = "\n", quiet = TRUE), sep = "\n")
 ```
 
 ### Submit single sequence in `fasta` format using `file` parameter
