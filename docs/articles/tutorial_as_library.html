@@ -110,6 +110,7 @@
 <h2 class="hasAnchor">
 <a href="#print-jpredapir-package-version" class="anchor"></a>Print <code>jpredapir</code> package version</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">packageVersion</span>(<span class="st">"jpredapir"</span>)</code></pre></div>
+<pre><code>[1] '0.1.0.9000'</code></pre>
 </div>
 <div id="submitting-jobs-to-jpred-server" class="section level2">
 <h2 class="hasAnchor">
@@ -128,102 +129,102 @@
 <a href="#submit-single-sequence-in-raw-format-using-file-parameter" class="anchor"></a>Submit single sequence in <code>raw</code> format using <code>file</code> parameter</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/submit.html">submit</a></span>(<span class="dt">mode =</span> <span class="st">"single"</span>, <span class="dt">user_format =</span> <span class="st">"raw"</span>, <span class="dt">file =</span> <span class="kw">system.file</span>(<span class="st">"exampledata/single_raw.example"</span>, <span class="dt">package =</span> <span class="st">"jpredapir"</span>))</code></pre></div>
 <p>Content of <code>single_raw.example</code> file:</p>
-<pre><code>## MQVWPIEGIKKFETLSYLPPLTVEDLLKQIEYLLRSKWVPCLEFSKVGFVYRENHRSPGYYDGRYWTMWKLPMFGCTDATQVLKELEEAKKAYPDAFVRIIGFDNVRQVQLISFIAYKPPGC</code></pre>
+<pre><code>MQVWPIEGIKKFETLSYLPPLTVEDLLKQIEYLLRSKWVPCLEFSKVGFVYRENHRSPGYYDGRYWTMWKLPMFGCTDATQVLKELEEAKKAYPDAFVRIIGFDNVRQVQLISFIAYKPPGC</code></pre>
 </div>
 <div id="submit-single-sequence-in-fasta-format-using-file-parameter" class="section level3">
 <h3 class="hasAnchor">
 <a href="#submit-single-sequence-in-fasta-format-using-file-parameter" class="anchor"></a>Submit single sequence in <code>fasta</code> format using <code>file</code> parameter</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/submit.html">submit</a></span>(<span class="dt">mode =</span> <span class="st">"single"</span>, <span class="dt">user_format =</span> <span class="st">"fasta"</span>, <span class="dt">file =</span> <span class="kw">system.file</span>(<span class="st">"exampledata/single_fasta.example"</span>, <span class="dt">package =</span> <span class="st">"jpredapir"</span>))</code></pre></div>
 <p>Content of <code>single_fasta.example</code> file:</p>
-<pre><code>## &gt;my test sequence
-## MQVWPIEGIKKFETLSYLPPLTVEDLLKQIEYLLRSKWVPCLEFSKVGFVYRENHRSPGYYDGRYWTMWKLPMFGCTDATQVLKELEEAKKAYPDAFVRIIGFDNVRQVQLISFIAYKPPGC</code></pre>
+<pre><code>&gt;my test sequence
+MQVWPIEGIKKFETLSYLPPLTVEDLLKQIEYLLRSKWVPCLEFSKVGFVYRENHRSPGYYDGRYWTMWKLPMFGCTDATQVLKELEEAKKAYPDAFVRIIGFDNVRQVQLISFIAYKPPGC</code></pre>
 </div>
 <div id="submit-multiple-sequences-in-fasta-format-using-file-parameter" class="section level3">
 <h3 class="hasAnchor">
 <a href="#submit-multiple-sequences-in-fasta-format-using-file-parameter" class="anchor"></a>Submit multiple sequences in <code>fasta</code> format using <code>file</code> parameter</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/submit.html">submit</a></span>(<span class="dt">mode =</span> <span class="st">"batch"</span>, <span class="dt">user_format =</span> <span class="st">"fasta"</span>, <span class="dt">file =</span> <span class="kw">system.file</span>(<span class="st">"exampledata/batch_fasta.example"</span>, <span class="dt">package =</span> <span class="st">"jpredapir"</span>), <span class="dt">email =</span> <span class="st">"name@domain.com"</span>)</code></pre></div>
 <p>Content of <code>batch_fasta.example</code> file:</p>
-<pre><code>## &gt;my_seq1
-## MKFLVLLFNILCLFPILGADELVMSPIPTTDVQPKVTFDINSEVSSGPLYLNPVEMAGVK
-## YLQLQRQPGVQVHKVVEGDIVIWENEEMPLYTCAIVTQNEVPYMAYVELLEDPDLIFFLK
-## EGDQWAPIPEDQYLARLQQLRQQIHTESFFSLNLSFQHENYKYEMVSSFQHSIKMVVFTP
-## KNGHICKMVYDKNIRIFKALYNEYVTSVIGFFRGLKLLLLNIFVIDDRGMIGNKYFQLLD
-## DKYAPISVQGYVATIPKLKDFAEPYHPIILDISDIDYVNFYLGDATYHDPGFKIVPKTPQ
-## CITKVVDGNEVIYESSNPSVECVYKVTYYDKKNESMLRLDLNHSPPSYTSYYAKREGVWV
-## TSTYIDLEEKIEELQDHRSTELDVMFMSDKDLNVVPLTNGNLEYFMVTPKPHRDIIIVFD
-## GSEVLWYYEGLENHLVCTWIYVTEGAPRLVHLRVKDRIPQNTDIYMVKFGEYWVRISKTQ
-## &gt;my_seq2
-## MASVKSSSSSSSSSFISLLLLILLVIVLQSQVIECQPQQSCTASLTGLNVCAPFLVPGSP
-## TASTECCNAVQSINHDCMCNTMRIAAQIPAQCNLPPLSCSAN
-## &gt;my_seq3
-## MEKKSIAGLCFLFLVLFVAQEVVVQSEAKTCENLVDTYRGPCFTTGSCDDHCKNKEHLLS
-## GRCRDDVRCWCTRNC</code></pre>
+<pre><code>&gt;my_seq1
+MKFLVLLFNILCLFPILGADELVMSPIPTTDVQPKVTFDINSEVSSGPLYLNPVEMAGVK
+YLQLQRQPGVQVHKVVEGDIVIWENEEMPLYTCAIVTQNEVPYMAYVELLEDPDLIFFLK
+EGDQWAPIPEDQYLARLQQLRQQIHTESFFSLNLSFQHENYKYEMVSSFQHSIKMVVFTP
+KNGHICKMVYDKNIRIFKALYNEYVTSVIGFFRGLKLLLLNIFVIDDRGMIGNKYFQLLD
+DKYAPISVQGYVATIPKLKDFAEPYHPIILDISDIDYVNFYLGDATYHDPGFKIVPKTPQ
+CITKVVDGNEVIYESSNPSVECVYKVTYYDKKNESMLRLDLNHSPPSYTSYYAKREGVWV
+TSTYIDLEEKIEELQDHRSTELDVMFMSDKDLNVVPLTNGNLEYFMVTPKPHRDIIIVFD
+GSEVLWYYEGLENHLVCTWIYVTEGAPRLVHLRVKDRIPQNTDIYMVKFGEYWVRISKTQ
+&gt;my_seq2
+MASVKSSSSSSSSSFISLLLLILLVIVLQSQVIECQPQQSCTASLTGLNVCAPFLVPGSP
+TASTECCNAVQSINHDCMCNTMRIAAQIPAQCNLPPLSCSAN
+&gt;my_seq3
+MEKKSIAGLCFLFLVLFVAQEVVVQSEAKTCENLVDTYRGPCFTTGSCDDHCKNKEHLLS
+GRCRDDVRCWCTRNC</code></pre>
 </div>
 <div id="submit-multiple-sequence-alignment-files-in-fasta-format" class="section level3">
 <h3 class="hasAnchor">
 <a href="#submit-multiple-sequence-alignment-files-in-fasta-format" class="anchor"></a>Submit multiple sequence alignment files in <code>fasta</code> format</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/submit.html">submit</a></span>(<span class="dt">mode =</span> <span class="st">"msa"</span>, <span class="dt">user_format =</span> <span class="st">"fasta"</span>, <span class="dt">file =</span> <span class="kw">system.file</span>(<span class="st">"exampledata/msa_fasta.example"</span>, <span class="dt">package =</span> <span class="st">"jpredapir"</span>), <span class="dt">email =</span> <span class="st">"name@domain.com"</span>)</code></pre></div>
 <p>Content of <code>msa_fasta.example</code> file:</p>
-<pre><code>## &gt;QUERY_1
-## MQVWPIEGIKKFETLSYLPPLTVEDLLKQIEYLLRSKWVPCLEFSKVGFVYRENHRSPGYYDGRYWTMWKLP
-## MFGCTDATQVLKELEEAKKAYPDAFVRIIGFDNVRQVQLISFIAYKPPGC
-## &gt;UniRef90_Q40250_2
-## MKVWPPIGLKKYETLSYLPPLSDEALSKEIDYLIRNKWIPCLEFEEHGFVYREHHHSPGYYDGRYWTMWKLP
-## MFGCTDSAQVMKEVGECKKEYPNAFIRVIGFDNIRQVQCISFIVAKPPGV
-## &gt;UniRef90_A7YVW5_3
-## MQVWPPLGKRKFETLSYLPPLPVDALLKQIDYLIRSGWIPCIEFTVEGFVYREHHHSPGYYDGRYWTMWKLP
-## MYGCTDSTQVLAEVEANKKEYPNSYIRIIGFDNKRQVQCVSFIVHTPPS-
-## &gt;UniRef90_P04714_4
-## MQVWPPYGKKKYETLSYLPDLTDEQLLKEIEYLLNKGWVPCLEFTEHGFVYREYHASPRYYDGRYWTMWKLP
-## MFGCTDATQVLGELQEAKKAYPNAWIRIIGFDNVRQVQCISFIAYKPPG-
-## &gt;UniRef90_W9RUU9_5
-## MQVWPPRGKLKFETLSYLPDLTDEQLLKEIDYLLRSNWIPCLEFEVKAHIYRENNRSPGYYDGRYWTMWKLP
-## MFGCTDATQVLAEVQETKKAYPDAHVRIIGFDNNRQVQCISFIAYKPPA-</code></pre>
+<pre><code>&gt;QUERY_1
+MQVWPIEGIKKFETLSYLPPLTVEDLLKQIEYLLRSKWVPCLEFSKVGFVYRENHRSPGYYDGRYWTMWKLP
+MFGCTDATQVLKELEEAKKAYPDAFVRIIGFDNVRQVQLISFIAYKPPGC
+&gt;UniRef90_Q40250_2
+MKVWPPIGLKKYETLSYLPPLSDEALSKEIDYLIRNKWIPCLEFEEHGFVYREHHHSPGYYDGRYWTMWKLP
+MFGCTDSAQVMKEVGECKKEYPNAFIRVIGFDNIRQVQCISFIVAKPPGV
+&gt;UniRef90_A7YVW5_3
+MQVWPPLGKRKFETLSYLPPLPVDALLKQIDYLIRSGWIPCIEFTVEGFVYREHHHSPGYYDGRYWTMWKLP
+MYGCTDSTQVLAEVEANKKEYPNSYIRIIGFDNKRQVQCVSFIVHTPPS-
+&gt;UniRef90_P04714_4
+MQVWPPYGKKKYETLSYLPDLTDEQLLKEIEYLLNKGWVPCLEFTEHGFVYREYHASPRYYDGRYWTMWKLP
+MFGCTDATQVLGELQEAKKAYPNAWIRIIGFDNVRQVQCISFIAYKPPG-
+&gt;UniRef90_W9RUU9_5
+MQVWPPRGKLKFETLSYLPDLTDEQLLKEIDYLLRSNWIPCLEFEVKAHIYRENNRSPGYYDGRYWTMWKLP
+MFGCTDATQVLAEVQETKKAYPDAHVRIIGFDNNRQVQCISFIAYKPPA-</code></pre>
 </div>
 <div id="submit-multiple-sequence-alignment-files-in-msf-format" class="section level3">
 <h3 class="hasAnchor">
 <a href="#submit-multiple-sequence-alignment-files-in-msf-format" class="anchor"></a>Submit multiple sequence alignment files in <code>msf</code> format</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/submit.html">submit</a></span>(<span class="dt">mode =</span> <span class="st">"msa"</span>, <span class="dt">user_format =</span> <span class="st">"msf"</span>, <span class="dt">file =</span> <span class="kw">system.file</span>(<span class="st">"exampledata/msa_msf.example"</span>, <span class="dt">package =</span> <span class="st">"jpredapir"</span>), <span class="dt">email =</span> <span class="st">"name@domain.com"</span>)</code></pre></div>
 <p>Content of <code>msa_msf.example</code> file:</p>
-<pre><code>##  /tmp/filelPdICy  MSF: 108  Type: N  January 01, 1776  12:00  Check: 2741 ..
-##  Name: 0_1a             Len:   108  Check:  4063  Weight:  1.00
-##  Name: 1_MA             Len:   108  Check:  4875  Weight:  1.00
-##  Name: 2_KE             Len:   108  Check:   449  Weight:  1.00
-##  Name: 3_NC             Len:   108  Check:  3354  Weight:  1.00
-## //
-##            0_1a  APAFSVSPAS GASDGQSVSV SVAAAGETYY IAQCAPVGGQ DACNPATATS
-##            1_MA  APGVTVTPAT GLSNGQTVTV SATTPGTVYH VGQCAVVEGV IGCDATTSTD
-##            2_KE  SAAVSVSPAT GLADGATVTV SASATSTSAT ALQCAILAGR GACNVAEFHD
-##            3_NC  APTATVTPSS GLSDGTVVKV AGAQAGTAYD VGQCAWVDGV LACNPADFSS
-##            0_1a  FTTDASGAAS FSFTVRKSYA GQTPSGTPVG SVDCATDACN LGAGNSGLNL
-##            1_MA  VTADAAGKIT AQLKVHSSFQ AVVANGTPWG TVNCKVVSCS AGLGSDSGEG
-##            2_KE  FSLSG.GEGT TSVVVRRSFT GYVPDGPEVG AVDCDTAPCE IVVGGNTGEY
-##            3_NC  VTADANGSAS TSLTVRRSFE GFLFDGTRWG TVDCTTAACQ VGLSDAAGNG
-##            0_1a  GHVALTFG
-##            1_MA  AAQAITFA
-##            2_KE  GNAAISFG
-##            3_NC  PGVAISFN</code></pre>
+<pre><code> /tmp/filelPdICy  MSF: 108  Type: N  January 01, 1776  12:00  Check: 2741 ..
+ Name: 0_1a             Len:   108  Check:  4063  Weight:  1.00
+ Name: 1_MA             Len:   108  Check:  4875  Weight:  1.00
+ Name: 2_KE             Len:   108  Check:   449  Weight:  1.00
+ Name: 3_NC             Len:   108  Check:  3354  Weight:  1.00
+//
+           0_1a  APAFSVSPAS GASDGQSVSV SVAAAGETYY IAQCAPVGGQ DACNPATATS
+           1_MA  APGVTVTPAT GLSNGQTVTV SATTPGTVYH VGQCAVVEGV IGCDATTSTD
+           2_KE  SAAVSVSPAT GLADGATVTV SASATSTSAT ALQCAILAGR GACNVAEFHD
+           3_NC  APTATVTPSS GLSDGTVVKV AGAQAGTAYD VGQCAWVDGV LACNPADFSS
+           0_1a  FTTDASGAAS FSFTVRKSYA GQTPSGTPVG SVDCATDACN LGAGNSGLNL
+           1_MA  VTADAAGKIT AQLKVHSSFQ AVVANGTPWG TVNCKVVSCS AGLGSDSGEG
+           2_KE  FSLSG.GEGT TSVVVRRSFT GYVPDGPEVG AVDCDTAPCE IVVGGNTGEY
+           3_NC  VTADANGSAS TSLTVRRSFE GFLFDGTRWG TVDCTTAACQ VGLSDAAGNG
+           0_1a  GHVALTFG
+           1_MA  AAQAITFA
+           2_KE  GNAAISFG
+           3_NC  PGVAISFN</code></pre>
 </div>
 <div id="submit-multiple-sequence-alignment-files-in-blc-format" class="section level3">
 <h3 class="hasAnchor">
 <a href="#submit-multiple-sequence-alignment-files-in-blc-format" class="anchor"></a>Submit multiple sequence alignment files in <code>blc</code> format</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/submit.html">submit</a></span>(<span class="dt">mode =</span> <span class="st">"msa"</span>, <span class="dt">user_format =</span> <span class="st">"blc"</span>, <span class="dt">file =</span> <span class="kw">system.file</span>(<span class="st">"exampledata/msa_blc.example"</span>, <span class="dt">package =</span> <span class="st">"jpredapir"</span>), <span class="dt">email =</span> <span class="st">"name@domain.com"</span>)</code></pre></div>
 <p>Content of <code>msa_blc.example</code> file:</p>
-<pre><code>## &gt;0_1a  Name
-## &gt;1_MA  Name
-## &gt;2_KE  Name
-## &gt;3_NC  Name
-## * iteration 1
-## AASA
-## PPAP
-## AGAT
-## FVVA
-## STST
-## VVVV
-## STST
-## PPPP
-## AAAS
-## *</code></pre>
+<pre><code>&gt;0_1a  Name
+&gt;1_MA  Name
+&gt;2_KE  Name
+&gt;3_NC  Name
+* iteration 1
+AASA
+PPAP
+AGAT
+FVVA
+STST
+VVVV
+STST
+PPPP
+AAAS
+*</code></pre>
 </div>
 </div>
 <div id="check-job-status-on-jpred-server" class="section level2">
