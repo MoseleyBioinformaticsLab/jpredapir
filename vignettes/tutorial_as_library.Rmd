@@ -16,13 +16,14 @@ retrieve results from JPred: A Secondary Structure Prediction Server
 
 ## Importing `jpredapir` library
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 library(jpredapir)
 ```
 
 ## Print `jpredapir` package help message
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
+library(jpredapir)
 help("jpredapir")
 ```
 
@@ -100,7 +101,7 @@ submit(mode = "msa", user_format = "fasta", file = system.file("exampledata/msa_
 Content of `msa_fasta.example` file:
 
 ```{r, echo = FALSE}
-cat(scan(system.file("exampledata/msa_fasta.example", package = "jpredapir"), what = character(),
+cat(scan(system.file("exampledata/msa_fasta_short.example", package = "jpredapir"), what = character(),
 sep = "\n", quiet = TRUE), sep = "\n")
 ```
 
@@ -126,9 +127,10 @@ submit(mode = "msa", user_format = "blc", file = system.file("exampledata/msa_bl
 Content of `msa_blc.example` file:
 
 ```{r, echo = FALSE}
-cat(scan(system.file("exampledata/msa_blc.example", package = "jpredapir"), what = character(),
+cat(scan(system.file("exampledata/msa_blc_short.example", package = "jpredapir"), what = character(),
 sep = "\n", quiet = TRUE), sep = "\n")
 ```
+
 
 ## Check job status on JPred server
 
